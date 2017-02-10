@@ -24,7 +24,12 @@ class TestConvertString2Dictionary(unittest.TestCase):
             '%3Dkey%3Dvalue': {'error': 'true'},
             'key%3Dvalue%3Dkey1%3Dvalue2': {'error': 'true'},
             'key%3D%3Dvalue%20': {'error': 'true'},
-            ''
+            'key%Dvalue%3D': {'error': 'true'},
+            '.key%3Dvalue': {'error': 'true'},
+            'ke.y%3Dvalue': {'ke.y': 'value'},
+            'ke.y%3D.v.a.lue': {'ke.y': '.v.a.lue'},
+            'ke.y%3D%20.v.a.lue': {'ke.y': '.v.a.lue'},
+            'ke.y%3D%20.%20v.a.lue': {'error': 'true'},
         }
         for input, expected in expected.iteritems():
             actual = convertString2Dictionary(input)

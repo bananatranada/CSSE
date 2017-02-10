@@ -14,31 +14,22 @@ import re
 # regex on keys and values to make sure they're in the proper format
 
 def isValidKey(key):
-    # regex: whitelist
     # no spaces in between
     # must begin with a letter followed by letters or numbers
-    # key = key.strip()
-    # pattern = '[a-zA-Z_]([a-zA-Z0-9_])*'
     pattern = '^[a-zA-Z][a-zA-Z0-9_\.]*$'
     match = re.match(pattern, key.strip())
     if not match:
         print('invalid key')
     return match
 
-print('is valid', isValidKey('a90'))
-
 def isValidValue(val):
-    # regex: whitelist
     # no spaces in between
     # must be letters or numbers
-    # val = val.strip()
-    # pattern = re.compile('^[a-zA-Z0-9_]*$')
     pattern = '^[a-zA-Z0-9_\.]+$'
     match = re.match(pattern, val.strip())
     if not match:
         print('invalid value')
     return match
-    # return pattern.match(val.strip()).lastindex
 
 def isValidQueryString(qs):
     # querystring can only contain & = or space
@@ -57,19 +48,15 @@ def convertString2Dictionary(inputString = ""):
         print('invalid querystring')
         return errorDict
 
-    print('qs; ', qs)
     # transform querystring into a dictionary
     try:
         qsDict = urlparse.parse_qs(qs, strict_parsing=1) # this can fail parsing
-        print('passed parse_qs; ', qsDict)
     except ValueError:
         print('cant parse_qs')
         return errorDict
 
     if len(qsDict) == 0:
         return errorDict
-
-    print('dictionary', qsDict)
 
     result = {}
     for key, val in qsDict.iteritems():
@@ -91,11 +78,14 @@ def convertString2Dictionary(inputString = ""):
 # inputString =  'function%20%3D%20get_stars'
 
 # inputString =  'key%3Dvalue%2C%20key%3Dvalue'
-inputString = 'key%3D'
+# inputString = 'key%3D'
 # inputString = 'value'
 # inputString =  '1key%3Dvalue'
 # inputString =  'k%20e%20y%20%3D%20value'
 # inputString = ''
 # inputString =  'key1%3Dvalue%3B%20key2%3Dvalue'
-result = convertString2Dictionary(inputString)
-print('result', result)
+# result = convertString2Dictionary(inputString)
+# print('result', result)
+
+# if this is the case, just add a custom method that strips spaces as well as periods
+# print(urlparse.parse_qs('.  . color.= . . blue .. . &... page=3......', strict_parsing=1))
