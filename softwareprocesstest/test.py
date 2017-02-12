@@ -1,10 +1,7 @@
+from __future__ import absolute_import
 import unittest
 
 from softwareprocess.convertString2Dictionary import convertString2Dictionary
-
-# inputString =  'key1%3Dvalue%3B%20key2%3Dvalue'
-# result = convertString2Dictionary(inputString)
-# print(result)
 
 class TestConvertString2Dictionary(unittest.TestCase):
     def testConvertString2Dictionary(self):
@@ -30,6 +27,8 @@ class TestConvertString2Dictionary(unittest.TestCase):
             'ke.y%3D.v.a.lue': {'ke.y': '.v.a.lue'},
             'ke.y%3D%20.v.a.lue': {'ke.y': '.v.a.lue'},
             'ke.y%3D%20.%20v.a.lue': {'error': 'true'},
+            'key%3D%20value%2C%20%20%3Dvalue2': {'error': 'true'},
+            'function%3D%20calculatePosition%2C%20sighting%3DBet%20.elgeuse': {'error': 'true'}
         }
         for input, expected in expected.iteritems():
             actual = convertString2Dictionary(input)
