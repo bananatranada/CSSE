@@ -235,3 +235,19 @@ class SampleTest(unittest.TestCase):
         mySample = SM.Sample(self.nominalN)
         self.assertAlmostEquals(mySample.f(1, 5), 0.578703704)
         
+# 500 integrate
+# Analysis
+#    inputs
+#        lowBound -> numeric mandatory validated
+#        highBound -> numeric mandatory validated
+#        n -> numeric mandatory validated (validated cuz it's a private method)
+#        f -> function mandatory validated
+#    outputs
+#        float .GE. 0
+# Happy path
+#    nominal case:  integrate(0, 1, 1, lambda u, n: u) -> 1/2
+#    nominal case:  integrate(0, 1, 1, lambda u, n: u**2) -> 1/3
+#    nominal case:  integrate(0, 1, 1, lambda u, n: u) -> 1/7
+#    nominal case:  integrate(0, 1, 1, lambda u, n: u) -> 1/101
+# Sad path
+#            none ... x is pre-validated (do unit tests/private methods not need sad paths?)
