@@ -241,6 +241,8 @@ class SampleTest(unittest.TestCase):
 #        lowBound -> numeric mandatory validated
 #        highBound -> numeric mandatory validated
 #        n -> numeric mandatory validated (validated cuz it's a private method)
+#             must be even
+#             .GE. 0
 #        f -> function mandatory validated
 #    outputs
 #        float .GE. 0
@@ -251,6 +253,8 @@ class SampleTest(unittest.TestCase):
 #    nominal case:  integrate(0, 1, 1, lambda u, n: u**100) -> 1/101
 # Sad path
 #            none ... x is pre-validated (do unit tests/private methods not need sad paths?)
+
+    #TODO: test if n is even and >= 0
     def test500_010_ShouldIntegrateWithCustomF1(self):
         mySample = SM.Sample(self.nominalN)
         self.assertAlmostEquals(mySample.integrate(0, 1, 1, lambda u, n: u), 1/2)
