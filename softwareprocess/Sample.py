@@ -31,7 +31,7 @@ class Sample(object):
             raise ValueError(functionName + "invalid tails")
         
         constant = self.calculateConstant(self.n)
-        integration = self.integrate(t, self.n, self.f) # where are high and low bounds?
+        integration = self.integrate(0, t, self.n, self.f) # where are high and low bounds?
         if(tails == 1):
             result = constant * integration + 0.5
         else:
