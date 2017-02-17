@@ -79,11 +79,11 @@ class Sample(object):
             i = 1
             while (i < highBound):
                 if i % 2 == 0:
-                    simpsonNew = simpsonNew + 2 * f(lowBound * s, n)
+                    simpsonNew = simpsonNew + 2 * f(i * s, n)
                 else:
-                    simpsonNew = simpsonNew + 4 * f(lowBound * s, n)
+                    simpsonNew = simpsonNew + 4 * f(i * s, n)
                 i = i + 1
-            simpsonNew = simpsonNew * (s / 3)
+            simpsonNew = simpsonNew * (w / 3)
             s = s * 2
 
         return simpsonNew
