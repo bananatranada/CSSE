@@ -83,9 +83,10 @@ class Sample(object):
                 else:
                     simpsonNew = simpsonNew + 4 * f(lowBound * s, n)
                 i = i + 1
+            simpsonNew = simpsonNew * s / 3
             s = s * 2
 
-        return simpsonNew
+        return simpsonNew *
         
         
     
