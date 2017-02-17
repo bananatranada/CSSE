@@ -86,7 +86,7 @@ class Sample(object):
             simpsonNew = simpsonNew * (s / 3)
             s = s * 2
 
-        return simpsonNew *
+        return simpsonNew
         
         
     
