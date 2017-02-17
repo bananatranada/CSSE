@@ -72,7 +72,7 @@ class Sample(object):
         simpsonOld = 0.0
         simpsonNew = epsilon
         s = 4
-        while (math.abs((simpsonNew - simpsonOld) / simpsonNew) > epsilon):
+        while (abs((simpsonNew - simpsonOld) / simpsonNew) > epsilon):
             simpsonOld = simpsonNew
             w = (highBound - lowBound) / s
             simpsonNew = f(lowBound, n) + f(highBound, n)
