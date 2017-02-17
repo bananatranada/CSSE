@@ -65,8 +65,8 @@ class Sample(object):
         return result
     
     def integrate(self, lowBound, highBound, n, f):
-        if (n % 2 != 0):
-            raise ValueError("n must be even")
+        # if (n % 2 != 0):
+        #     raise ValueError("n must be even")
 
         epsilon = 0.001
         simpsonOld = 0.0
