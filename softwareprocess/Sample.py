@@ -95,7 +95,7 @@ class Sample(object):
                     simpsonNew = simpsonNew + 4 * f(i * s, n)
             simpsonNew = simpsonNew * (w / 3.0)
             # print(simpsonNew)
-            s = s * 2
+            s *= 2
 
         return simpsonNew
         

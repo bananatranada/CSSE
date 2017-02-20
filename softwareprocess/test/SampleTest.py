@@ -257,7 +257,7 @@ class SampleTest(unittest.TestCase):
     #TODO: test if n is even and >= 0
     def test500_010_ShouldIntegrateWithCustomF1(self):
         mySample = SM.Sample(self.nominalN)
-        self.assertAlmostEquals(mySample.integrate(0, 1, 1, lambda u, n: u), 1/2)
+        self.assertAlmostEquals(mySample.integrate(0, 2, 1, lambda u, n: u), 1/2)
 
     def test500_020_ShouldIntegrateWithCustomF2(self):
         mySample = SM.Sample(self.nominalN)
