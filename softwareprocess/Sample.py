@@ -78,13 +78,14 @@ class Sample(object):
             simpsonNew = f(lowBound, n) + f(highBound, n)
             i = 1
             while (i < highBound):
+                print(i)
                 if i % 2 == 0:
                     simpsonNew = simpsonNew + 2 * f(i * s, n) #wrong
                 else:
                     simpsonNew = simpsonNew + 4 * f(i * s, n)
                 i = i + 1
             simpsonNew = simpsonNew * (w / 3.0)
-            print(simpsonNew)
+            # print(simpsonNew)
             s = s * 2
 
         return simpsonNew
