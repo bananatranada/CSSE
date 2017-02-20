@@ -76,15 +76,20 @@ class Sample(object):
             simpsonOld = simpsonNew
             w = (highBound - lowBound) * 1.0 / s
             simpsonNew = f(lowBound, n) + f(highBound, n)
-            i = 1
-            while (i < highBound):
-                print(i)
+            # i = 1
+            # while (i < highBound):
+            #     print(i)
+            #     if i % 2 == 0:
+            #         simpsonNew = simpsonNew + 2 * f(i * s, n) #wrong
+            #     else:
+            #         simpsonNew = simpsonNew + 4 * f(i * s, n)
+            #     i += 1
+            #     print('new i')
+            for i in range(1, highBound):
                 if i % 2 == 0:
                     simpsonNew = simpsonNew + 2 * f(i * s, n) #wrong
                 else:
                     simpsonNew = simpsonNew + 4 * f(i * s, n)
-                i = i + 1
-                print('new i')
             simpsonNew = simpsonNew * (w / 3.0)
             # print(simpsonNew)
             s = s * 2
