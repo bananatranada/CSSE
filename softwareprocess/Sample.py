@@ -84,7 +84,8 @@ class Sample(object):
                     simpsonNew += 4 * f(i * s, n)
             simpsonNew *= (w / 3.0)
             print('simpsonNew', simpsonNew)
-            print('abs', abs((simpsonNew - simpsonOld) / simpsonNew))
+            print('abs', abs((simpsonNew - simpsonOld) / simpsonNew)) # why does it keep returning 1?
+            print('epsilon', epsilon)
             s *= 2
 
         return simpsonNew
