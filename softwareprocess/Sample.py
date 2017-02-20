@@ -86,6 +86,7 @@ class Sample(object):
             #         simpsonNew = simpsonNew + 4 * f(i * s, n)
             #     i += 1
             #     print('new i')
+            print(range(1, highBound))
             for i in range(1, highBound):
                 print(i)
                 if i % 2 == 0:
