@@ -86,6 +86,7 @@ class Sample(object):
             #     i += 1
             #     print('new i')
             for i in range(1, highBound):
+                print(i)
                 if i % 2 == 0:
                     simpsonNew = simpsonNew + 2 * f(i * s, n) #wrong
                 else:
