@@ -92,7 +92,7 @@ class Sample(object):
                     simpsonNew += 2 * f(i * s, n)
                 else:
                     simpsonNew += 4 * f(i * s, n)
-            # simpsonNew *= (w / 3.0) #add only when it goes throu loop
+            simpsonNew *= (w / 3.0)
             print(simpsonNew)
             s *= 2
 
