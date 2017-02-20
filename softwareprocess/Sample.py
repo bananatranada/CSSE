@@ -79,9 +79,9 @@ class Sample(object):
             for i in range(1, int(highBound)):
                 # print(i)
                 if i % 2 == 0:
-                    simpsonNew += 2 * f(lowBound + i * s, n)
+                    simpsonNew += 2 * f(lowBound + i * w, n)
                 else:
-                    simpsonNew += 4 * f(lowBound + i * s, n)
+                    simpsonNew += 4 * f(lowBound + i * w, n)
             simpsonNew *= (w / 3.0)
             # print('simpsonNew', simpsonNew)
             # print('abs', abs((simpsonNew - simpsonOld) / (1.0 * simpsonNew))) # why does it keep returning 1?
