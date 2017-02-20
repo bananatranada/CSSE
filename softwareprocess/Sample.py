@@ -93,8 +93,8 @@ class Sample(object):
                     simpsonNew = simpsonNew + 2 * f(i * s, n) #wrong
                 else:
                     simpsonNew = simpsonNew + 4 * f(i * s, n)
-            simpsonNew = simpsonNew * (w / 3.0)
-            print(simpsonNew)
+            simpsonNew *= (w / 3.0)
+            print(abs((simpsonNew - simpsonOld) / simpsonNew))
             s *= 2
 
         return simpsonNew
