@@ -84,6 +84,7 @@ class Sample(object):
                 else:
                     simpsonNew = simpsonNew + 4 * f(i * s, n)
                 i = i + 1
+                print('new i')
             simpsonNew = simpsonNew * (w / 3.0)
             # print(simpsonNew)
             s = s * 2
