@@ -72,7 +72,7 @@ class Sample(object):
         simpsonOld = 0.0
         simpsonNew = epsilon
         s = 4.0
-        while (abs((simpsonNew - simpsonOld) / simpsonNew) > epsilon):
+        while (abs((simpsonNew - simpsonOld) / 1.0 * simpsonNew) > epsilon):
             simpsonOld = simpsonNew
             w = (highBound - lowBound) * 1.0 / s
             simpsonNew = f(lowBound, n) + f(highBound, n)
@@ -84,7 +84,7 @@ class Sample(object):
                     simpsonNew += 4 * f(i * s, n)
             simpsonNew *= (w / 3.0)
             print('simpsonNew', simpsonNew)
-            print('abs', abs((simpsonNew - simpsonOld) / simpsonNew)) # why does it keep returning 1?
+            print('abs', abs((simpsonNew - simpsonOld) / 1.0 * simpsonNew)) # why does it keep returning 1?
             print('epsilon', epsilon)
             s *= 2
 
