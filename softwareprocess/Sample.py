@@ -89,9 +89,9 @@ class Sample(object):
             for i in range(1, highBound):
                 print(i)
                 if i % 2 == 0:
-                    simpsonNew = simpsonNew + 2 * f(i * s, n) #wrong
+                    simpsonNew += 2 * f(i * s, n)
                 else:
-                    simpsonNew = simpsonNew + 4 * f(i * s, n)
+                    simpsonNew += 4 * f(i * s, n)
             simpsonNew *= (w / 3.0) #add only when it goes throu loop
             print(simpsonNew)
             s *= 2
