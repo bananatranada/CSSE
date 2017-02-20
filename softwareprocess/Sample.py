@@ -86,15 +86,14 @@ class Sample(object):
             #         simpsonNew = simpsonNew + 4 * f(i * s, n)
             #     i += 1
             #     print('new i')
-            print(range(1, highBound))
             for i in range(1, highBound):
                 print(i)
                 if i % 2 == 0:
                     simpsonNew = simpsonNew + 2 * f(i * s, n) #wrong
                 else:
                     simpsonNew = simpsonNew + 4 * f(i * s, n)
-            # simpsonNew *= (w / 3.0)
-            print(abs((simpsonNew - simpsonOld) / simpsonNew))
+            simpsonNew *= (w / 3.0) #add only when it goes throu loop
+            print(simpsonNew)
             s *= 2
 
         return simpsonNew
