@@ -82,7 +82,7 @@ class Sample(object):
                 else:
                     simpsonNew += 4 * f(lowBound + i * w, n)
             simpsonNew *= (w / 3.0)
-            # print('simpsonNew', simpsonNew)
+            print('simpsonNew', simpsonNew)
             # print('abs', abs((simpsonNew - simpsonOld) / simpsonNew)) # why does it keep returning 1?
             s *= 2
 
