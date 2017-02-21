@@ -71,7 +71,6 @@ class Sample(object):
         s = 4.0
         while (abs((simpsonNew - simpsonOld) / simpsonNew) > epsilon):
             simpsonOld = simpsonNew
-            # print('old',simpsonOld)
             w = (highBound - lowBound) * 1.0 / s
             simpsonNew = f(lowBound, n) + f(highBound, n)
             for i in range(1, int(s) + 1):
@@ -80,7 +79,6 @@ class Sample(object):
                 else:
                     simpsonNew += 4 * f(lowBound + i*w, n)
             simpsonNew *= (w / 3)
-            # print('simpsonNew', simpsonNew)
             s *= 2
 
         return simpsonNew
