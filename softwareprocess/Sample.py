@@ -65,9 +65,6 @@ class Sample(object):
         return result
     
     def integrate(self, lowBound, highBound, n, f):
-        # if (n % 2 != 0):
-        #     raise ValueError("n must be even")
-
         epsilon = 0.001
         simpsonOld = 0.0
         simpsonNew = epsilon
@@ -79,10 +76,10 @@ class Sample(object):
             simpsonNew = f(lowBound, n) + f(highBound, n)
             for i in range(1, int(s + 1)):
                 if i % 2 == 0:
-                    simpsonNew += 2 * f(lowBound + i * w, n)
+                    simpsonNew += 2 * f(lowBound + i*w, n)
                 else:
-                    simpsonNew += 4 * f(lowBound + i * w, n)
-            simpsonNew *= (w / 3.0)
+                    simpsonNew += 4 * f(lowBound + i*w, n)
+            simpsonNew *= (w / 3)
             # print('simpsonNew', simpsonNew)
             s *= 2
 
