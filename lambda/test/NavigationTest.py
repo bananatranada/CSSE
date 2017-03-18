@@ -1,5 +1,6 @@
 from unittest import TestCase
-import dispatch as nav
+import lambda.dispatch as nav
+# import lambda.dispatch as nav
 
 class NavigationTest(TestCase):
     def shouldReturnErrorIfAltitudeExists(self):
