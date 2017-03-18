@@ -1,5 +1,5 @@
 from unittest import TestCase
-import lambda.dispatch as nav
+import dispatch as nav
 # import lambda.dispatch as nav
 
 class NavigationTest(TestCase):
