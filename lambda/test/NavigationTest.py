@@ -1,7 +1,5 @@
 from unittest import TestCase
-# import lambda.dispatch as dispatch
 from .. import dispatch as nav
-# import lambda.dispatch as nav
 
 class NavigationTest(TestCase):
     def shouldReturnErrorIfAltitudeExists(self):
@@ -13,5 +11,5 @@ class NavigationTest(TestCase):
             'error': 'altitude already exists in the input'
         }
         actual = nav.adjust(input)
-        self.assertEqual(actual, expected)
+        print self.assertEqual(actual, expected)
 
