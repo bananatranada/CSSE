@@ -11,5 +11,5 @@ class NavigationTest(TestCase):
             'error': 'altitude already exists in the input'
         }
         actual = nav.adjust(input)
-        return self.assertDictEqual(actual, expected)
+        print self.assertDictEqual(actual, expected)
 
