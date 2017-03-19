@@ -1,3 +1,5 @@
+import math
+
 def dispatch(values=None):
 
     #Validate parm
@@ -38,9 +40,11 @@ def adjust(values):
         output['error'] = 'observation does not exist'
         return output
     degreesAndMinutes = values['observation'].split('d')
-    degrees = degreesAndMinutes[0]
+    degrees = int(degreesAndMinutes[0])
+    print('degrees', degrees)
     minutesStr = degreesAndMinutes[1]
     minutes = float(minutesStr)
+    print('minutes', minutes)
     if degrees < 0 or degrees >= 90:
         output['error'] = 'degrees must be an integer [0, 90)'
         return output
@@ -53,11 +57,13 @@ def adjust(values):
     if degrees == 0 and minutes == 0.1:
         output['error'] = 'can\'t be less than 0d0.1'
         return output
+    totalDegrees = degrees + arcminToDegrees(minutes)
+    print('totalDegrees', totalDegrees)
 
     # height
     height = 0
     if 'height' in values:
-        height = int(values['height'])
+        height = float(values['height'])
         if values['height'] < 0:
             output['error'] = 'height must be greater than 0'
             return output
@@ -73,7 +79,7 @@ def adjust(values):
     # pressure
     pressure = 1010
     if 'pressure' in values:
-        pressure = values['pressure']
+        pressure = int(values['pressure'])
         if pressure < 100 or pressure > 1100:
             output['error'] = 'pressure must be within range [100, 1100]'
             return output
@@ -82,12 +88,53 @@ def adjust(values):
     horizon = 'natural'
     if 'horizon' in values:
         horizon = values['horizon'].lower()
-        if horizon != 'artificial' or horizon != 'natural':
+        if horizon != 'artificial' and horizon != 'natural':
             output['error'] = 'horizon must be either artificial or natural (case-insensitive)'
             return output
 
+    # dip
+    dip = 0
+    if horizon == 'natural':
+        dip = calcDip(height)
+    print('dip', dip)
 
-    return values
+    # refraction
+    refraction = calcRefraction(pressure, convertToCelcius(temperature), math.tan(totalDegrees))
+    print('refraction', refraction)
+    print('temp in C', convertToCelcius(temperature))
+
+    altitude = calcAltitude(totalDegrees, dip, refraction)
+    print('altitude', altitude)
+    formattedAltitude = formatAlt(altitude)
+    print('formatted altitude', formattedAltitude)
+    # TODO: check if altitude is within valid ranges
+
+    output['altitude'] = formattedAltitude
+
+    return output
+
+def formatAlt(alt):
+    degrees = math.floor(alt)
+    arcmin = round(degreesToArcmin(alt - degrees), 1)
+    return '%dd%.1f' % (degrees, arcmin)
+
+def calcAltitude(totalDegrees, dip, refraction):
+    return totalDegrees + dip + refraction
+
+def calcDip(height):
+    return (-0.97 * math.sqrt(height)) / 60.0
+
+def calcRefraction(pressure, tempC, tangent):
+    return (-0.00452*pressure) / ((273+tempC) * tangent)
+
+def convertToCelcius(f):
+    return (f - 32) * 5.0/9.0
+
+def arcminToDegrees(min):
+    return min / 60.0
+
+def degreesToArcmin(degrees):
+    return degrees * 60.0
 
 def predict(values):
     return values
@@ -97,3 +144,14 @@ def correct(values):
 
 def locate(values):
     return values
+
+input = {
+    'observation': '30d1.5',
+    'height': '19.0',
+    'pressure': '1000',
+    'horizon': 'artificial',
+    'op': 'adjust',
+    'temperature': '85'
+}
+output = dispatch(input)
+print(output)
