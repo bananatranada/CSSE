@@ -99,7 +99,7 @@ def adjust(values):
     print('dip', dip)
 
     # refraction
-    refraction = calcRefraction(pressure, convertToCelcius(temperature), math.tan(totalDegrees))
+    refraction = calcRefraction(pressure, convertToCelcius(temperature), math.tan(math.radians(totalDegrees)))
     print('refraction', refraction)
     print('temp in C', convertToCelcius(temperature))
 
@@ -136,6 +136,12 @@ def arcminToDegrees(min):
 def degreesToArcmin(degrees):
     return degrees * 60.0
 
+def degreesToRadians(degrees):
+    return degrees * 180.0
+
+def radiansToDegrees(radians):
+    return radians / 180.0
+
 def predict(values):
     return values
 
@@ -147,11 +153,15 @@ def locate(values):
 
 input = {
     'observation': '30d1.5',
-    'height': '19.0',
+    'height': '19',
     'pressure': '1000',
     'horizon': 'artificial',
     'op': 'adjust',
     'temperature': '85'
 }
+# input = {
+#     'observation': '42d0.0',
+#     'op': 'adjust',
+# }
 output = dispatch(input)
 print(output)
