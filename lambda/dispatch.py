@@ -67,7 +67,11 @@ def adjust(values):
     # height
     height = 0
     if 'height' in values:
-        height = float(values['height'])
+        try:
+            height = float(values['height'])
+        except ValueError:
+            output['error'] = 'height is invalid'
+            return output
         if values['height'] < 0:
             # output['error'] = 'height must be greater than 0'
             output['error'] = 'height is invalid'
