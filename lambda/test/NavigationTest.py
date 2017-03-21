@@ -140,7 +140,7 @@ class NavigationTest(TestCase):
     # Sad path
     def test200_910_ShouldReturnMandatoryElemMissingError(self):
         input = {'op': 'adjust'}
-        expected = {'error':'mandatory information is missing'}
+        expected = {'op': 'adjust', 'error':'mandatory information is missing'}
         self.assertDictEqual(nav.adjust(input), expected)
 
     def shouldReturnErrorIfAltitudeExists(self):
