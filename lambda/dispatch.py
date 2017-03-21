@@ -168,12 +168,6 @@ def arcminToDegrees(min):
 def degreesToArcmin(degrees):
     return degrees * 60.0
 
-def degreesToRadians(degrees):
-    return degrees * 180.0
-
-def radiansToDegrees(radians):
-    return radians / 180.0
-
 def predict(values):
     return values
 
