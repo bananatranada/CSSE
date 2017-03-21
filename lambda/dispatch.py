@@ -39,12 +39,16 @@ def adjust(values):
     if 'observation' not in values:
         output['error'] = 'mandatory information is missing'
         return output
-    degreesAndMinutes = values['observation'].split('d')
-    degrees = int(degreesAndMinutes[0])
-    print('degrees', degrees)
-    minutesStr = degreesAndMinutes[1]
-    minutes = float(minutesStr)
-    print('minutes', minutes)
+    try:
+        degreesAndMinutes = values['observation'].split('d')
+        degrees = int(degreesAndMinutes[0])
+        print('degrees', degrees)
+        minutesStr = degreesAndMinutes[1]
+        minutes = float(minutesStr)
+        print('minutes', minutes)
+    except:
+        output['error'] = 'observation is invalid'
+        return output
     if degrees < 0 or degrees >= 90:
         # output['error'] = 'degrees must be an integer [0, 90)'
         output['error'] = 'observation is invalid'
