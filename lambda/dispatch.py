@@ -133,6 +133,9 @@ def adjust(values):
 
     altitude = calcAltitude(totalDegrees, dip, refraction)
     print('altitude', altitude)
+    if altitude < 0 or altitude >= 91:
+        output['error'] = 'altitude is invalid'
+        return output
     formattedAltitude = formatAlt(altitude)
     print('formatted altitude', formattedAltitude)
     # TODO: check if altitude is within valid ranges
