@@ -112,23 +112,22 @@ class NavigationTest(TestCase):
         output = {'error':'parameter is missing'}
         self.assertDictEqual(nav.dispatch(), output)
 
-    # 100 lambda_function
-    #    Desired level of confidence:    boundary value analysis
-    #    Input-output Analysis
-    #        inputs:      n ->    integer .GE. 2 and .LT. 30  mandatory, unvalidated
-    #        outputs:    instance of TCurve
-    #    Happy path analysis:
-    #        n:      nominal value    n=4
-    #                low bound        n=2
-    #                high bound       n=29
-    #    Sad path analysis:
-    #        n:      non-int n          n="abc"
-    #                out-of-bounds n    n=1; n=30
-    #                missing n
-    #
+#---- Unit tests
+#
+# 200 adjust
+#     Analysis
+#        inputs:
+#            values ->  dict mandatory validated (private functions are usually validated)
+#     Happy path:
+#            adjust(validDict) -> dictionary with a new altitude element calculated
+#     Sad path:
+#            adjust(invalidDict) -> dictionary with an error corresponding to the invalid element
+#
     # Happy path
-
-    # Sad path
+    def test200_010_ShouldReturnCalcuatedAltitude(self):
+        input = {'observation': '30d1.5', 'height': '19.0', 'pressure': '1000', 'horizon': 'artificial', 'op': 'adjust', 'temperature': '85'}
+        expected = {'altitude':'29d59.9', 'observation': '30d1.5', 'height': '19.0', 'pressure': '1000', 'horizon': 'artificial', 'op': 'adjust', 'temperature': '85'}
+        self.assertDictEqual(nav.adjust(input), expected)
 
     def shouldReturnErrorIfAltitudeExists(self):
         input = {
