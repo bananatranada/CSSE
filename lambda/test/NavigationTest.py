@@ -107,8 +107,9 @@ class NavigationTest(TestCase):
         self.assertDictEqual(nav.dispatch(input), output)
 
     #       dispatch() -> {'error':'dictionary is missing'}
+    # again, inconsistent with umphress's implementation and excel's. going with umphress again
     def test100_950_ShouldReturnDictMissingError(self):
-        output = {'error':'dictionary is missing'}
+        output = {'error':'parameter is missing'}
         self.assertDictEqual(nav.dispatch(), output)
 
     # 100 lambda_function
