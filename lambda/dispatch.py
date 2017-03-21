@@ -108,7 +108,7 @@ def adjust(values):
     if 'horizon' in values:
         try:
             horizon = values['horizon'].lower()
-        except ValueError:
+        except AttributeError:
             output['error'] = 'horizon is invalid'
             return output
         if horizon != 'artificial' and horizon != 'natural':
