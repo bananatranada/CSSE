@@ -130,7 +130,11 @@ class NavigationTest(TestCase):
         self.assertDictEqual(nav.adjust(input), expected)
     def test200_020_ShouldReturnCalcuatedAltitude(self):
         input = {'observation': '42d0.0',  'op': 'adjust'}
-        expected = {'altitude':'41d59.0', 'observation': '42d0.0',  'op': 'adjust'}  		
+        expected = {'altitude':'41d59.0', 'observation': '42d0.0',  'op': 'adjust'}
+        self.assertDictEqual(nav.adjust(input), expected)
+    def test200_030_ShouldReturnCalcuatedAltitude(self):
+        input = {'observation': '42d0.0',  'op': 'adjust', 'extraKey':'ignore'}
+        expected = {'altitude':'41d59.0', 'observation': '42d0.0',  'op': 'adjust', 'extraKey':'ignore'}  		
         self.assertDictEqual(nav.adjust(input), expected)
 
     def shouldReturnErrorIfAltitudeExists(self):
