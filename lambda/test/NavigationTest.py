@@ -150,7 +150,7 @@ class NavigationTest(TestCase):
 
     def test200_910_ShouldReturnInvalidHeightError(self):
         input = {'observation': '45d15.2', 'height': 'a', 'pressure': '1010', 'horizon': 'natural', 'op': 'adjust', 'temperature': '71'}
-        expected = {'observation': '45d15.2', 'height': 'a', 'pressure': '1010', 'horizon': 'natural', 'op': 'adjust', 'temperature': '71', 'error':'height is invalid'}		
+        expected = {'observation': '45d15.2', 'height': 'a', 'pressure': '1010', 'horizon': 'natural', 'op': 'adjust', 'temperature': '71', 'error':'height is invalid'}
         self.assertDictEqual(nav.adjust(input), expected)
 
     def shouldReturnErrorIfAltitudeExists(self):

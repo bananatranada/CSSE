@@ -67,9 +67,13 @@ def adjust(values):
     # height
     height = 0
     if 'height' in values:
+        if not isinstance(values['height'], float):
+            output['error'] = 'height is invalid'
+            return output
         height = float(values['height'])
         if values['height'] < 0:
-            output['error'] = 'height must be greater than 0'
+            # output['error'] = 'height must be greater than 0'
+            output['error'] = 'height is invalid'
             return output
 
     # temperature
