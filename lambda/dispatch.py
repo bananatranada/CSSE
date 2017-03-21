@@ -77,26 +77,40 @@ def adjust(values):
             output['error'] = 'height is invalid'
             return output
 
-    # temperature
+    # temperature (int)
     temperature = 72
     if 'temperature' in values:
-        temperature = int(values['temperature'])
+        try:
+            temperature = int(values['temperature'])
+        except ValueError:
+            output['error'] = 'temperature is invalid'
+            return output
         if temperature < -20 or temperature > 120:
-            output['error'] = 'temperature must be within range [-20, 120]'
+            # output['error'] = 'temperature must be within range [-20, 120]'
+            output['error'] = 'temperature is invalid'
             return output
 
-    # pressure
+    # pressure (int)
     pressure = 1010
     if 'pressure' in values:
-        pressure = int(values['pressure'])
+        try:
+            pressure = int(values['pressure'])
+        except ValueError:
+            output['error'] = 'pressure is invalid'
+            return output
         if pressure < 100 or pressure > 1100:
-            output['error'] = 'pressure must be within range [100, 1100]'
+            # output['error'] = 'pressure must be within range [100, 1100]'
+            output['error'] = 'pressure is invalid'
             return output
 
-    # horizon (no need to convert, so don't check type)
+    # horizon (string)
     horizon = 'natural'
     if 'horizon' in values:
-        horizon = values['horizon'].lower()
+        try:
+            horizon = values['horizon'].lower()
+        except ValueError:
+            output['error'] = 'horizon is invalid'
+            return output
         if horizon != 'artificial' and horizon != 'natural':
             # output['error'] = 'horizon must be either artificial or natural (case-insensitive)'
             output['error'] = 'horizon is invalid'

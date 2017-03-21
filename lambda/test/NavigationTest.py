@@ -158,6 +158,11 @@ class NavigationTest(TestCase):
         expected = {'observation': '45d15.2', 'height': '6', 'horizon': '   ', 'pressure': '1010', 'op': 'adjust', 'temperature': '71', 'error':'horizon is invalid'}
         self.assertDictEqual(nav.adjust(input), expected)
 
+    def test200_930_ShouldReturnInvalidHorizonError(self):
+        input = {'observation': '45d15.2', 'height': '6', 'horizon': 2, 'pressure': '1010', 'op': 'adjust', 'temperature': '71'}
+        expected = {'observation': '45d15.2', 'height': '6', 'horizon': 2, 'pressure': '1010', 'op': 'adjust', 'temperature': '71', 'error':'horizon is invalid'}
+        self.assertDictEqual(nav.adjust(input), expected)
+
     # TODO: test if the elements aren't correct types using try/except
 
 
