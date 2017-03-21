@@ -37,7 +37,7 @@ def adjust(values):
 
     # observation (degrees and minutes)
     if 'observation' not in values:
-        output['error'] = 'observation does not exist'
+        output['error'] = 'mandatory information is missing'
         return output
     degreesAndMinutes = values['observation'].split('d')
     degrees = int(degreesAndMinutes[0])
@@ -46,16 +46,20 @@ def adjust(values):
     minutes = float(minutesStr)
     print('minutes', minutes)
     if degrees < 0 or degrees >= 90:
-        output['error'] = 'degrees must be an integer [0, 90)'
+        # output['error'] = 'degrees must be an integer [0, 90)'
+        output['error'] = 'observation is invalid'
         return output
     if minutesStr[::-1].find('.') is not 1:
-        output['error'] = 'minutes must be a float with a mandatory decimal [0.0, 60.0)'
+        # output['error'] = 'minutes must be a float with a mandatory decimal [0.0, 60.0)'
+        output['error'] = 'observation is invalid'
         return output
     if minutes < 0.0 or minutes >= 60.0:
-        output['error'] = 'minutes must be a float with a mandatory decimal [0.0, 60.0)'
+        # output['error'] = 'minutes must be a float with a mandatory decimal [0.0, 60.0)'
+        output['error'] = 'observation is invalid'
         return output
     if degrees == 0 and minutes == 0.1:
-        output['error'] = 'can\'t be less than 0d0.1'
+        # output['error'] = 'can\'t be less than 0d0.1'
+        output['error'] = 'observation is invalid'
         return output
     totalDegrees = degrees + arcminToDegrees(minutes)
     print('totalDegrees', totalDegrees)
