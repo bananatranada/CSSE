@@ -97,9 +97,13 @@ class NavigationTest(TestCase):
         self.assertDictEqual(nav.dispatch(input), output)
 
     #       dispatch({'op': 'unknown'}) -> {'error':'op is not a legal operation'}
+    # NOTE: Going with umphress's implementation that combines previous key-values Not excel
     def test100_940_ShouldReturnIllegalOpError(self):
         input = {'op': 'unknown'}
-        output = {'error':'op is not a legal operation'}
+        output = {
+            'op': 'unknown',
+            'error':'op is not a legal operation'
+        }
         self.assertDictEqual(nav.dispatch(input), output)
 
     #       dispatch() -> {'error':'dictionary is missing'}
