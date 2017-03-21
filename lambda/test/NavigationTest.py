@@ -88,6 +88,7 @@ class NavigationTest(TestCase):
               'horizon': 'artificial',
               'temperature': '72'
           }
+        print(nav.dispatch(input))
         self.assertDictEqual(nav.dispatch(input), output)
 
     #       dispatch(42) -> {'error':'parameter is not a dictionary'}
