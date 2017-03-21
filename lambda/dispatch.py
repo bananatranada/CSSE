@@ -67,7 +67,7 @@ def adjust(values):
     # height
     height = 0
     if 'height' in values:
-        if not isinstance(values['height'], float):
+        if not isinstance(values['height'], float) and not isinstance(values['height'], int):
             output['error'] = 'height is invalid'
             return output
         height = float(values['height'])
