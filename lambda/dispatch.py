@@ -42,10 +42,10 @@ def adjust(values):
     try:
         degreesAndMinutes = values['observation'].split('d')
         degrees = int(degreesAndMinutes[0])
-        print('degrees', degrees)
+        # print('degrees', degrees)
         minutesStr = degreesAndMinutes[1]
         minutes = float(minutesStr)
-        print('minutes', minutes)
+        # print('minutes', minutes)
     except:
         output['error'] = 'observation is invalid'
         return output
@@ -66,7 +66,7 @@ def adjust(values):
         output['error'] = 'observation is invalid'
         return output
     totalDegrees = degrees + arcminToDegrees(minutes)
-    print('totalDegrees', totalDegrees)
+    # print('totalDegrees', totalDegrees)
 
     # height (numeric? int or float accepted?)
     height = 0
@@ -124,21 +124,21 @@ def adjust(values):
     dip = 0
     if horizon == 'natural':
         dip = calcDip(height)
-    print('dip', dip)
+    # print('dip', dip)
 
     # refraction
     refraction = calcRefraction(pressure, convertToCelcius(temperature), math.tan(math.radians(totalDegrees)))
-    print('refraction', refraction)
-    print('temp in C', convertToCelcius(temperature))
+    # print('refraction', refraction)
+    # print('temp in C', convertToCelcius(temperature))
 
     altitude = calcAltitude(totalDegrees, dip, refraction)
-    print('altitude', altitude)
+    # print('altitude', altitude)
     # check to see if altitude is within valid range
     if altitude < 0 or altitude >= 91:
         output['error'] = 'altitude is invalid'
         return output
     formattedAltitude = formatAlt(altitude)
-    print('formatted altitude', formattedAltitude)
+    # print('formatted altitude', formattedAltitude)
 
     output['altitude'] = formattedAltitude
 
