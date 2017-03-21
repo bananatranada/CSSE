@@ -68,7 +68,7 @@ class NavigationTest(TestCase):
         self.assertDictEqual(nav.dispatch(input), output)
     # Sad path
     def test100_910_ShouldReturnNoOpError(self):
-        input = {'op': 'locate'}
+        input = {}
         output = {'error': 'no op is specified'}
         self.assertDictEqual(nav.dispatch(input), output)
 
