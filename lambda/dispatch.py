@@ -109,6 +109,7 @@ def adjust(values):
     print('formatted altitude', formattedAltitude)
     # TODO: check if altitude is within valid ranges
 
+
     output['altitude'] = formattedAltitude
 
     return output
