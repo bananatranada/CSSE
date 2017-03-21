@@ -93,12 +93,13 @@ def adjust(values):
             output['error'] = 'pressure must be within range [100, 1100]'
             return output
 
-    # horizon
+    # horizon (no need to convert, so don't check type)
     horizon = 'natural'
     if 'horizon' in values:
         horizon = values['horizon'].lower()
         if horizon != 'artificial' and horizon != 'natural':
-            output['error'] = 'horizon must be either artificial or natural (case-insensitive)'
+            # output['error'] = 'horizon must be either artificial or natural (case-insensitive)'
+            output['error'] = 'horizon is invalid'
             return output
 
     # dip
