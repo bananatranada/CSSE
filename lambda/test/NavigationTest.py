@@ -88,25 +88,24 @@ class NavigationTest(TestCase):
               'horizon': 'artificial',
               'temperature': '72'
           }
-        print(nav.dispatch(input))
         self.assertDictEqual(nav.dispatch(input), output)
 
     #       dispatch(42) -> {'error':'parameter is not a dictionary'}
     def test100_930_ShouldReturnErrorIfInputIsNotDict(self):
         input = 42
         output = {'error':'parameter is not a dictionary'}
-        self.assertDictEqual(nav.adjust(input), output)
+        self.assertDictEqual(nav.dispatch(input), output)
 
     #       dispatch({'op': 'unknown'}) -> {'error':'op is not a legal operation'}
     def test100_940_ShouldReturnIllegalOpError(self):
         input = {'op': 'unknown'}
         output = {'error':'op is not a legal operation'}
-        self.assertDictEqual(nav.adjust(input), output)
+        self.assertDictEqual(nav.dispatch(input), output)
 
     #       dispatch() -> {'error':'dictionary is missing'}
     def test100_950_ShouldReturnDictMissingError(self):
         output = {'error':'dictionary is missing'}
-        self.assertDictEqual(nav.adjust(), output)
+        self.assertDictEqual(nav.dispatch(), output)
 
     # 100 lambda_function
     #    Desired level of confidence:    boundary value analysis
