@@ -68,7 +68,7 @@ def adjust(values):
     totalDegrees = degrees + arcminToDegrees(minutes)
     print('totalDegrees', totalDegrees)
 
-    # height
+    # height (numeric? int or float accepted?)
     height = 0
     if 'height' in values:
         try:
