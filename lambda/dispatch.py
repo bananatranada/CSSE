@@ -24,10 +24,6 @@ def dispatch(values=None):
         values['error'] = 'op is not a legal operation'
         return values
 
-# TODO:
-# 1. calculation
-# 2. handle errors
-# 3. test
 def adjust(values):
     output = values.copy()
 
