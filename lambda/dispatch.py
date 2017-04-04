@@ -74,7 +74,7 @@ def adjust(values):
             return output
         if values['height'] < 0:
             # output['error'] = 'height must be greater than 0'
-            output['error'] = 'height is invalid'
+            output['error'] = 'height must be greater than 0'
             return output
 
     # temperature (int)
