@@ -1,30 +1,6 @@
 import math
 
-def predict(values=None):
-
-    #Validate parm
-    if(values == None):
-        return {'error': 'parameter is missing'}
-    if(not(isinstance(values,dict))):
-        return {'error': 'parameter is not a dictionary'}
-    if (not('op' in values)):
-        values['error'] = 'no op is specified'
-        return values
-
-    #Perform designated function
-    if(values['op'] == 'adjust'):
-        return adjust(values)
-    elif(values['op'] == 'predict'):
-        return values    #This calculation is stubbed out
-    elif(values['op'] == 'correct'):
-        return values    #This calculation is stubbed out
-    elif(values['op'] == 'locate'):
-        return values    #This calculation is stubbed out
-    else:
-        values['error'] = 'op is not a legal operation'
-        return values
-
-def adjust(values):
+def predict(values):
     output = values.copy()
 
     if 'altitude' in values:
@@ -171,18 +147,3 @@ def correct(values):
 
 def locate(values):
     return values
-
-# input = {
-#     'observation': '30d1.5',
-#     'height': '19',
-#     'pressure': '1000',
-#     'horizon': 'artificial',
-#     'op': 'adjust',
-#     'temperature': '85'
-# }
-# input = {
-#     'observation': '42d0.0',
-#     'op': 'adjust',
-# }
-# output = dispatch(input)
-# print(output)

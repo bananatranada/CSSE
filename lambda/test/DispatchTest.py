@@ -27,6 +27,19 @@ class DispatchTest(TestCase):
     #           'op': 'adjust',
     #           'temperature': '85'
     #       }
+    #         dispatch({
+    #             'op': 'predict',
+    #             'body': 'Betelgeuse',
+    #             'date': '2016-01-17',
+    #             'time': '03:15:42'
+    #         }) -> {
+    #             'op':'predict',
+    #             'body': 'Betelgeuse',
+    #             'date': '2016-01-17',
+    #             'time': '03:15:42',
+    #             'long': '75d53.6',
+    #             'lat': '7d24.3'
+    #         }
     #    Sad path analysis:
     #       dispatch({'op': 'locate'}) -> {'error': 'no op is specified'}
     #       dispatch({
@@ -66,6 +79,24 @@ class DispatchTest(TestCase):
             'temperature': '85'
         }
         self.assertDictEqual(nav.dispatch(input), output)
+
+    def test100_020_ShouldPredict(self):
+        input = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42'
+        }
+        output = {
+            'op':'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42',
+            'long': '75d53.6',
+            'lat': '7d24.3'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
     # Sad path
     def test100_910_ShouldReturnNoOpError(self):
         input = {}
@@ -111,6 +142,10 @@ class DispatchTest(TestCase):
     def test100_950_ShouldReturnDictMissingError(self):
         output = {'error':'parameter is missing'}
         self.assertDictEqual(nav.dispatch(), output)
+
+
+
+
 
 #---- Unit tests
 #
@@ -164,26 +199,31 @@ class DispatchTest(TestCase):
         self.assertDictEqual(nav.dispatch(input), expected)
 
 
-
-
-
-
-
-
-    def shouldReturnErrorIfAltitudeExists(self):
+#---- Unit tests
+#
+# 300 predict
+#     Analysis
+#        inputs:
+#            values ->  dict mandatory validated (private functions are usually validated)
+#     Happy path:
+#            predict(validDict) -> dictionary with a new long/lat element calculated
+#     Sad path:
+#            predict(invalidDict) -> dictionary with an error corresponding to the invalid element
+#
+    def test300_010_ShouldReturnPredictedLocation(self):
         input = {
-            'altitude': 'something'
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42'
         }
-        expected = {
-            'altitude': 'something',
-            'error': 'altitude already exists in the input'
+        output = {
+            'op':'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42',
+            'long': '75d53.6',
+            'lat': '7d24.3'
         }
-        actual = nav.dispatch(input)
-        self.assertDictEqual(expected, actual)
-
-    def shouldReturnErrorIfObservationDoesNotExist(self):
-        input = {
-            ''
-        }
-
+        self.assertDictEqual(nav.dispatch(input), output)
 
