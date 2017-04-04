@@ -1,16 +1,86 @@
 import math
+import datetime
 
 def predict(values):
     output = values.copy()
 
-    if 'altitude' in values:
-        output['error'] = 'altitude already exists in the input'
-        return output
+    # if 'altitude' in values:
+    #     output['error'] = 'altitude already exists in the input'
+    #     return output
 
-    # observation (degrees and minutes)
-    if 'observation' not in values:
+    # body
+    if 'body' not in values:
         output['error'] = 'mandatory information is missing'
         return output
+
+    # date (this will default to the correct time also)
+    # Always use actual types within code; use the correct format to output
+    dateAndTime = datetime.datetime.strptime('2001-01-01', '%Y-%m-%d')
+
+    if 'date' in values:
+        try:
+            date = values['date'].split('-')
+
+            if len(date) != 3:
+                output['error'] = 'date is invalid'
+                return output
+
+            # validate year (length of 4)
+            year = date[0]
+            if len(year) is not 4 or int(year) < 2001:
+                output['error'] = 'date is invalid'
+                return output
+
+            # validate month (no need to check if valid month - strptime does it)
+            month = date[1]
+            if len(month) is not 2:
+                output['error'] = 'date is invalid'
+                return output
+
+            # validate day
+            day = date[2]
+            if len(day) is not 2:
+                output['error'] = 'date is invalid'
+                return output
+
+            dateAndTime = datetime.datetime.strptime(values['date'], '%Y-%m-%d')
+        except ValueError:
+            output['error'] = 'date is invalid'
+            return output
+
+    # time
+    if 'time' in values:
+        try:
+            time = values['date'].split(':')
+
+            if len(time) != 3:
+                output['error'] = 'time is invalid'
+                return output
+
+            # validate hour (length of 2)
+            hour = time[0]
+            if len(hour) is not 2:
+                output['error'] = 'time is invalid'
+                return output
+
+            # validate min
+            min = time[1]
+            if len(min) is not 2:
+                output['error'] = 'time is invalid'
+                return output
+
+            # validate sec
+            sec = time[2]
+            if len(sec) is not 2:
+                output['error'] = 'time is invalid'
+                return output
+
+            dateAndTime = dateAndTime.replace(hour=int(hour), minute=int(min), second=int(sec))
+        except ValueError:
+            output['error'] = 'time is invalid'
+            return output
+
+
     try:
         degreesAndMinutes = values['observation'].split('d')
         degrees = int(degreesAndMinutes[0])
@@ -147,3 +217,4 @@ def correct(values):
 
 def locate(values):
     return values
+
