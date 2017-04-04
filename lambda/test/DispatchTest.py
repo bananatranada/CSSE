@@ -1,7 +1,7 @@
 from unittest import TestCase
 from .. import dispatch as nav
 
-class NavigationTest(TestCase):
+class DispatchTest(TestCase):
     # -----------------------------------------------------------------------
     # ---- Acceptance Tests
     # 100 dispatch
