@@ -66,7 +66,7 @@ stars = {
 def predict(values):
     output = values.copy()
 
-    if 'lat' in values or 'long in values':
+    if 'lat' in values or 'long' in values:
         output['error'] = 'lat or long already exists in the input'
         return output
 
@@ -113,7 +113,7 @@ def predict(values):
     # time
     if 'time' in values:
         try:
-            time = values['date'].split(':')
+            time = values['time'].split(':')
 
             if len(time) != 3:
                 output['error'] = 'time is invalid'
@@ -152,7 +152,7 @@ def predict(values):
 
     # greenwich hour angle of aries
     ghaAries = degreesFromFormattedAlt('100d42.6')
-    refDateAndTime = datetime.datetime.strptime(2001, '%Y')
+    refDateAndTime = datetime.datetime.strptime('2001', '%Y')
     refYear = refDateAndTime.year
 
     cumulativeProgression = ghaAries * (dateAndTime.year - refYear)
@@ -160,7 +160,7 @@ def predict(values):
     earthRotation = 86164.1
     earthClock = 86400
     earthDegrees = degreesFromFormattedAlt('360d0.00')
-    dailyRotation = math.abs(earthDegrees - earthRotation / earthClock * earthDegrees)
+    dailyRotation = abs(earthDegrees - earthRotation / earthClock * earthDegrees)
     leapProgression = leapYears * dailyRotation
 
     newGhaghaAries = ghaAries + cumulativeProgression + leapProgression
@@ -175,8 +175,8 @@ def predict(values):
     ghaStar = totalGHA + degreesFromFormattedAlt(sha)
     ghaStar = formatAlt(ghaStar)
 
-    values['lat'] = lat
-    values['long'] = ghaStar
+    output['lat'] = lat
+    output['long'] = ghaStar
 
     return output
 
@@ -193,7 +193,7 @@ def numOfLeapYears(year1, year2):
     return num
 
 def degreesFromFormattedAlt(f):
-    degreesAndMinutes = values['observation'].split('d')
+    degreesAndMinutes = f.split('d')
     degrees = int(degreesAndMinutes[0])
     # print('degrees', degrees)
     minutesStr = degreesAndMinutes[1]
@@ -224,8 +224,7 @@ def arcminToDegrees(min):
 def degreesToArcmin(degrees):
     return degrees * 60.0
 
-def predict(values):
-    return values
+
 
 def correct(values):
     return values
@@ -233,3 +232,11 @@ def correct(values):
 def locate(values):
     return values
 
+input = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42'
+        }
+
+print(predict(input))

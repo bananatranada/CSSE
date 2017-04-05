@@ -225,5 +225,6 @@ class DispatchTest(TestCase):
             'long': '75d53.6',
             'lat': '7d24.3'
         }
+        print(nav.dispatch(input))
         self.assertDictEqual(nav.dispatch(input), output)
 
