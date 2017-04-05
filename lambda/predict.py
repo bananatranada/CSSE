@@ -155,7 +155,6 @@ def predict(values):
     refDateAndTime = datetime.datetime.strptime('2001', '%Y')
     refYear = refDateAndTime.year
 
-    print('neg', degreesFromFormattedAlt('-0d14.31667'))
     cumulativeProgression = (degreesFromFormattedAlt('-0d14.31667') * (dateAndTime.year - refYear))
     print('cumulativeProgression', formatAlt(cumulativeProgression))
     leapYears = numOfLeapYears(refYear, dateAndTime.year)
@@ -260,9 +259,9 @@ def locate(values):
 
 input = {
             'op': 'predict',
-            'body': 'Betelgeuse',
-            'date': '2016-01-17',
-            'time': '03:15:42'
+            'body': 'Procyon',
+            'date': '2018-05-22',
+            'time': '12:43:33'
         }
 
 print(predict(input))

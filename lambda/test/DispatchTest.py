@@ -225,6 +225,21 @@ class DispatchTest(TestCase):
             'long': '75d53.6',
             'lat': '7d24.3'
         }
-        print(nav.dispatch(input))
         self.assertDictEqual(nav.dispatch(input), output)
 
+    def test300_020_ShouldReturnPredictedLocation(self):
+        input = {
+            'op': 'predict',
+            'body': 'Procyon',
+            'date': '2018-05-22',
+            'time': '12:43:33'
+        }
+        output = {
+            'body': 'Procyon',
+            'long': '315d55.5',
+            'lat': '5d10.9',
+            'time': '12:43:33',
+            'date': '2018-05-22',
+            'op': 'predict'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
