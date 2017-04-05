@@ -1,5 +1,6 @@
 import math
 import datetime
+import util
 
 stars = {
     'Alpheratz': '357d41.7,29d10.9',
@@ -151,36 +152,36 @@ def predict(values):
     sha = stars[star].split(',')[0]
 
     # greenwich hour angle of aries
-    ghaAries = degreesFromFormattedAlt('100d42.6')
+    ghaAries = util.degreesFromFormattedAlt('100d42.6')
     refDateAndTime = datetime.datetime.strptime('2001', '%Y')
     refYear = refDateAndTime.year
 
-    cumulativeProgression = (degreesFromFormattedAlt('-0d14.31667') * (dateAndTime.year - refYear))
-    print('cumulativeProgression', formatAlt(cumulativeProgression))
-    leapYears = numOfLeapYears(refYear, dateAndTime.year)
+    cumulativeProgression = (util.degreesFromFormattedAlt('-0d14.31667') * (dateAndTime.year - refYear))
+    print('cumulativeProgression', util.formatAlt(cumulativeProgression))
+    leapYears = util.numOfLeapYears(refYear, dateAndTime.year)
     earthRotation = 86164.1
     earthClock = 86400
-    earthDegrees = degreesFromFormattedAlt('360d0.00')
+    earthDegrees = util.degreesFromFormattedAlt('360d0.00')
     dailyRotation = abs(earthDegrees - earthRotation / earthClock * earthDegrees)
     leapProgression = leapYears * dailyRotation
-    print('total/leap progression', formatAlt(leapProgression))
+    print('total/leap progression', util.formatAlt(leapProgression))
 
     newGhaghaAries = ghaAries + cumulativeProgression + leapProgression
-    print('newGHA', formatAlt(newGhaghaAries))
+    print('newGHA', util.formatAlt(newGhaghaAries))
 
     # get dateAndTime - refDateAndTime in seconds
     delta = (dateAndTime-datetime.datetime.strptime(str(dateAndTime.year), '%Y')).total_seconds()
     print('delta', delta)
     # rotation = earthRotation / delta * degreesFromFormattedAlt('360d0.00')
-    rotation = delta / 86164.1 * degreesFromFormattedAlt('360d0.00')
-    print('rotation', formatAndNormalizeAlt(rotation))
+    rotation = delta / 86164.1 * util.degreesFromFormattedAlt('360d0.00')
+    print('rotation', util.formatAndNormalizeAlt(rotation))
 
     totalGHA = newGhaghaAries + rotation
-    print('final gha of aries', formatAndNormalizeAlt(totalGHA))
+    print('final gha of aries', util.formatAndNormalizeAlt(totalGHA))
 
     # star's GHA
-    ghaStar = totalGHA + degreesFromFormattedAlt(sha)
-    ghaStar = formatAndNormalizeAlt(ghaStar)
+    ghaStar = totalGHA + util.degreesFromFormattedAlt(sha)
+    ghaStar = util.formatAndNormalizeAlt(ghaStar)
     print('ghaStar', ghaStar)
 
     output['lat'] = lat
@@ -188,66 +189,66 @@ def predict(values):
 
     return output
 
-def isLeapYear(year):
-    if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
-        return True
-    return False
-
-def numOfLeapYears(year1, year2):
-    num = 0
-    for year in range(year1, year2):
-        if isLeapYear(year):
-            num = num + 1
-    return num
-
-def degreesFromFormattedAlt(f):
-    degreesAndMinutes = f.split('d')
-    degreesStr = degreesAndMinutes[0]
-    degrees = int(degreesStr)
-    # print('degrees', degrees)
-    minutesStr = degreesAndMinutes[1]
-    minutes = float(minutesStr)
-    if degreesStr[0] == '-':
-        return -1 * (abs(degrees) + arcminToDegrees(minutes))
-    return degrees + arcminToDegrees(minutes)
-
-
-def formatAlt(alt):
-    print(alt)
-    print(math.floor(alt))
-    degrees = math.floor(alt)
-    if alt < 0:
-        degrees = math.ceil(alt)
-    print('fa', degrees)
-    arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
-    return '%dd%.1f' % (degrees, arcmin)
-
-def formatAndNormalizeAlt(alt):
-    degrees = math.floor(alt)
-    if alt < 0:
-        degrees = math.ceil(alt)
-    normalizedDegrees = degrees % 360
-    print('fa', degrees)
-    arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
-    return '%dd%.1f' % (normalizedDegrees, arcmin)
-
-def calcAltitude(totalDegrees, dip, refraction):
-    return totalDegrees + dip + refraction
-
-def calcDip(height):
-    return (-0.97 * math.sqrt(height)) / 60.0
-
-def calcRefraction(pressure, tempC, tangent):
-    return (-0.00452*pressure) / ((273+tempC) * tangent)
-
-def convertToCelcius(f):
-    return (f - 32) * 5.0/9.0
-
-def arcminToDegrees(min):
-    return min / 60.0
-
-def degreesToArcmin(degrees):
-    return degrees * 60.0
+# def isLeapYear(year):
+#     if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+#         return True
+#     return False
+#
+# def numOfLeapYears(year1, year2):
+#     num = 0
+#     for year in range(year1, year2):
+#         if isLeapYear(year):
+#             num = num + 1
+#     return num
+#
+# def degreesFromFormattedAlt(f):
+#     degreesAndMinutes = f.split('d')
+#     degreesStr = degreesAndMinutes[0]
+#     degrees = int(degreesStr)
+#     # print('degrees', degrees)
+#     minutesStr = degreesAndMinutes[1]
+#     minutes = float(minutesStr)
+#     if degreesStr[0] == '-':
+#         return -1 * (abs(degrees) + arcminToDegrees(minutes))
+#     return degrees + arcminToDegrees(minutes)
+#
+#
+# def formatAlt(alt):
+#     print(alt)
+#     print(math.floor(alt))
+#     degrees = math.floor(alt)
+#     if alt < 0:
+#         degrees = math.ceil(alt)
+#     print('fa', degrees)
+#     arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
+#     return '%dd%.1f' % (degrees, arcmin)
+#
+# def formatAndNormalizeAlt(alt):
+#     degrees = math.floor(alt)
+#     if alt < 0:
+#         degrees = math.ceil(alt)
+#     normalizedDegrees = degrees % 360
+#     print('fa', degrees)
+#     arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
+#     return '%dd%.1f' % (normalizedDegrees, arcmin)
+#
+# def calcAltitude(totalDegrees, dip, refraction):
+#     return totalDegrees + dip + refraction
+#
+# def calcDip(height):
+#     return (-0.97 * math.sqrt(height)) / 60.0
+#
+# def calcRefraction(pressure, tempC, tangent):
+#     return (-0.00452*pressure) / ((273+tempC) * tangent)
+#
+# def convertToCelcius(f):
+#     return (f - 32) * 5.0/9.0
+#
+# def arcminToDegrees(min):
+#     return min / 60.0
+#
+# def degreesToArcmin(degrees):
+#     return degrees * 60.0
 
 
 
