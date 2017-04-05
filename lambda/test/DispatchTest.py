@@ -243,3 +243,37 @@ class DispatchTest(TestCase):
             'op': 'predict'
         }
         self.assertDictEqual(nav.dispatch(input), output)
+
+    def test400_030_ShouldReturnPredictedLocation(self):
+        input = {
+            'op': 'predict',
+            'body': 'Alnilam',
+            'date': '2014-12-22',
+            'time': '03:43:33'
+        }
+        output = {
+            'body': 'Alnilam',
+            'long': '62d13.6',
+            'lat': '-1d11.8',
+            'time': '03:43:33',
+            'date': '2014-12-22',
+            'op': 'predict'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    def test500_030_ShouldReturnPredictedLocation(self):
+        input = {
+            'op': 'predict',
+            'body': 'Nunki',
+            'date': '2042-11-01',
+            'time': '08:02:04'
+        }
+        output = {
+            'body': 'Nunki',
+            'long': '237d10.2',
+            'lat': '-26d16.4',
+            'time': '08:02:04',
+            'date': '2042-11-01',
+            'op': 'predict'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
