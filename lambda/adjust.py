@@ -96,55 +96,25 @@ def adjust(values):
     # dip
     dip = 0
     if horizon == 'natural':
-        dip = calcDip(height)
+        dip = util.calcDip(height)
     # print('dip', dip)
 
     # refraction
-    refraction = calcRefraction(pressure, convertToCelcius(temperature), math.tan(math.radians(totalDegrees)))
+    refraction = util.calcRefraction(pressure, util.convertToCelcius(temperature), math.tan(math.radians(totalDegrees)))
     # print('refraction', refraction)
     # print('temp in C', convertToCelcius(temperature))
 
-    altitude = calcAltitude(totalDegrees, dip, refraction)
+    altitude = util.calcAltitude(totalDegrees, dip, refraction)
     # print('altitude', altitude)
     # check to see if altitude is within valid range
     if altitude < 0 or altitude >= 91:
         output['error'] = 'altitude is invalid'
         return output
-    formattedAltitude = formatAlt(altitude)
+    formattedAltitude = util.formatAlt(altitude)
     # print('formatted altitude', formattedAltitude)
 
     output['altitude'] = formattedAltitude
 
     return output
 
-# def formatAlt(alt):
-#     degrees = math.floor(alt)
-#     arcmin = round(degreesToArcmin(alt - degrees), 1)
-#     return '%dd%.1f' % (degrees, arcmin)
-#
-# def calcAltitude(totalDegrees, dip, refraction):
-#     return totalDegrees + dip + refraction
-#
-# def calcDip(height):
-#     return (-0.97 * math.sqrt(height)) / 60.0
-#
-# def calcRefraction(pressure, tempC, tangent):
-#     return (-0.00452*pressure) / ((273+tempC) * tangent)
-#
-# def convertToCelcius(f):
-#     return (f - 32) * 5.0/9.0
-#
-# def arcminToDegrees(min):
-#     return min / 60.0
-#
-# def degreesToArcmin(degrees):
-#     return degrees * 60.0
-#
-# def predict(values):
-#     return values
-#
-# def correct(values):
-#     return values
-#
-# def locate(values):
-#     return values
+
