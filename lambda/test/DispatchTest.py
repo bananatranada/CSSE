@@ -340,7 +340,7 @@ class DispatchTest(TestCase):
             'body': 'Betelgeuse',
             'date': '2016-01-17',
             'time': '03:15:42',
-            'lat': '7d24.3',
+            'lat': '32d3.33',
             'error': 'lat or long already exists in the input'
         }
         self.assertDictEqual(nav.dispatch(input), output)
