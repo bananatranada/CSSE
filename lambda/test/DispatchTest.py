@@ -433,6 +433,6 @@ class DispatchTest(TestCase):
             'body': 'Betelgeuse',
             'date': '2016-01-17',
             'time': '03:15:62',
-            'error': 'date is invalid'
+            'error': 'time is invalid'
         }
         self.assertDictEqual(nav.dispatch(input), output)
