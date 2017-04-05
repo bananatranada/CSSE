@@ -327,7 +327,7 @@ class DispatchTest(TestCase):
         self.assertDictEqual(nav.dispatch(input), output)
 
     # Sad path
-    def test300_910_ShouldReturnLatExistsError(self):
+    def test300_910_ShouldReturnLatLongExistsError(self):
         input = {
             'op': 'predict',
             'body': 'Betelgeuse',
@@ -345,3 +345,30 @@ class DispatchTest(TestCase):
         }
         self.assertDictEqual(nav.dispatch(input), output)
 
+    def test300_920_ShouldReturnLatLongExistsError(self):
+        input = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42',
+            'long': '32d3.33'
+        }
+        output = {
+            'op':'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42',
+            'long': '32d3.33',
+            'error': 'lat or long already exists in the input'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    def test300_930_ShouldReturnMandatoryMissingError(self):
+        input = {
+            'op': 'predict',
+        }
+        output = {
+            'op':'predict',
+            'error': 'mandatory information is missing'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
