@@ -373,7 +373,7 @@ class DispatchTest(TestCase):
         }
         self.assertDictEqual(nav.dispatch(input), output)
 
-    def test300_930_ShouldReturnInvalidStarError(self):
+    def test300_940_ShouldReturnInvalidStarError(self):
         input = {
             'op': 'predict',
             'body': 'unknown',
@@ -386,5 +386,37 @@ class DispatchTest(TestCase):
             'date': '2016-01-17',
             'time': '03:15:42',
             'error': 'star not in catalog'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    def test300_950_ShouldReturnInvalidDateError(self):
+        input = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-13-17',
+            'time': '03:15:42'
+        }
+        output = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-13-17',
+            'time': '03:15:42',
+            'error': 'date is invalid'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    def test300_960_ShouldReturnInvalidDateError(self):
+        input = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42'
+        }
+        output = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-013-17',
+            'time': '03:15:42',
+            'error': 'date is invalid'
         }
         self.assertDictEqual(nav.dispatch(input), output)
