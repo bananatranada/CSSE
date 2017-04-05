@@ -420,3 +420,19 @@ class DispatchTest(TestCase):
             'error': 'date is invalid'
         }
         self.assertDictEqual(nav.dispatch(input), output)
+
+    def test300_970_ShouldReturnInvalidTimeError(self):
+        input = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:62'
+        }
+        output = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:62',
+            'error': 'date is invalid'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
