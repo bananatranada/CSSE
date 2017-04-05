@@ -25,12 +25,9 @@ def degreesFromFormattedAlt(f):
 
 
 def formatAlt(alt):
-    print(alt)
-    print(math.floor(alt))
     degrees = math.floor(alt)
     if alt < 0:
         degrees = math.ceil(alt)
-    print('fa', degrees)
     arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
     return '%dd%.1f' % (degrees, arcmin)
 
@@ -39,7 +36,6 @@ def formatAndNormalizeAlt(alt):
     if alt < 0:
         degrees = math.ceil(alt)
     normalizedDegrees = degrees % 360
-    print('fa', degrees)
     arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
     return '%dd%.1f' % (normalizedDegrees, arcmin)
 
