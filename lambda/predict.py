@@ -176,11 +176,12 @@ def predict(values):
     print('rotation', formatAndNormalizeAlt(rotation))
 
     totalGHA = newGhaghaAries + rotation
-    print('final gha of aries', formatAlt(totalGHA))
+    print('final gha of aries', formatAndNormalizeAlt(totalGHA))
 
     # star's GHA
     ghaStar = totalGHA + degreesFromFormattedAlt(sha)
-    ghaStar = formatAlt(ghaStar)
+    ghaStar = formatAndNormalizeAlt(ghaStar)
+    print('ghaStar', ghaStar)
 
     output['lat'] = lat
     output['long'] = ghaStar
