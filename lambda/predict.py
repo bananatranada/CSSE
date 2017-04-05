@@ -233,4 +233,3 @@ def correct(values):
 def locate(values):
     return values
 
-input =
