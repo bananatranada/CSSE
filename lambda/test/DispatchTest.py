@@ -318,11 +318,30 @@ class DispatchTest(TestCase):
         }
         output = {
             'op':'predict',
-            'body': 'Betelgeuse',
+            'body': 'betelgeuse',
             'date': '2016-01-17',
             'time': '03:15:42',
             'long': '75d53.6',
             'lat': '7d24.3'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    # Sad path
+    def test300_910_ShouldReturnLatExistsError(self):
+        input = {
+            'op': 'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42',
+            'lat': '32d3.33'
+        }
+        output = {
+            'op':'predict',
+            'body': 'Betelgeuse',
+            'date': '2016-01-17',
+            'time': '03:15:42',
+            'lat': '7d24.3',
+            'error': 'lat or long already exists in the input'
         }
         self.assertDictEqual(nav.dispatch(input), output)
 
