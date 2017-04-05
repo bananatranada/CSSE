@@ -409,7 +409,7 @@ class DispatchTest(TestCase):
         input = {
             'op': 'predict',
             'body': 'Betelgeuse',
-            'date': '2016-01-17',
+            'date': '2016-013-17',
             'time': '03:15:42'
         }
         output = {
