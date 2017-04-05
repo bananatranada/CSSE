@@ -1,4 +1,5 @@
 import math
+import util
 
 def adjust(values):
     output = values.copy()
@@ -37,7 +38,7 @@ def adjust(values):
         # output['error'] = 'can\'t be less than 0d0.1'
         output['error'] = 'observation is invalid'
         return output
-    totalDegrees = degrees + arcminToDegrees(minutes)
+    totalDegrees = degrees + util.arcminToDegrees(minutes)
     # print('totalDegrees', totalDegrees)
 
     # height (numeric? int or float accepted?)
@@ -116,34 +117,34 @@ def adjust(values):
 
     return output
 
-def formatAlt(alt):
-    degrees = math.floor(alt)
-    arcmin = round(degreesToArcmin(alt - degrees), 1)
-    return '%dd%.1f' % (degrees, arcmin)
-
-def calcAltitude(totalDegrees, dip, refraction):
-    return totalDegrees + dip + refraction
-
-def calcDip(height):
-    return (-0.97 * math.sqrt(height)) / 60.0
-
-def calcRefraction(pressure, tempC, tangent):
-    return (-0.00452*pressure) / ((273+tempC) * tangent)
-
-def convertToCelcius(f):
-    return (f - 32) * 5.0/9.0
-
-def arcminToDegrees(min):
-    return min / 60.0
-
-def degreesToArcmin(degrees):
-    return degrees * 60.0
-
-def predict(values):
-    return values
-
-def correct(values):
-    return values
-
-def locate(values):
-    return values
+# def formatAlt(alt):
+#     degrees = math.floor(alt)
+#     arcmin = round(degreesToArcmin(alt - degrees), 1)
+#     return '%dd%.1f' % (degrees, arcmin)
+#
+# def calcAltitude(totalDegrees, dip, refraction):
+#     return totalDegrees + dip + refraction
+#
+# def calcDip(height):
+#     return (-0.97 * math.sqrt(height)) / 60.0
+#
+# def calcRefraction(pressure, tempC, tangent):
+#     return (-0.00452*pressure) / ((273+tempC) * tangent)
+#
+# def convertToCelcius(f):
+#     return (f - 32) * 5.0/9.0
+#
+# def arcminToDegrees(min):
+#     return min / 60.0
+#
+# def degreesToArcmin(degrees):
+#     return degrees * 60.0
+#
+# def predict(values):
+#     return values
+#
+# def correct(values):
+#     return values
+#
+# def locate(values):
+#     return values
