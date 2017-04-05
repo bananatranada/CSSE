@@ -155,7 +155,8 @@ def predict(values):
     refDateAndTime = datetime.datetime.strptime('2001', '%Y')
     refYear = refDateAndTime.year
 
-    cumulativeProgression = -1*(degreesFromFormattedAlt('0d14.31667') * (dateAndTime.year - refYear))
+    print('neg', degreesFromFormattedAlt('-0d14.31667'))
+    cumulativeProgression = (degreesFromFormattedAlt('-0d14.31667') * (dateAndTime.year - refYear))
     print('cumulativeProgression', formatAlt(cumulativeProgression))
     leapYears = numOfLeapYears(refYear, dateAndTime.year)
     earthRotation = 86164.1
@@ -202,13 +203,14 @@ def numOfLeapYears(year1, year2):
 
 def degreesFromFormattedAlt(f):
     degreesAndMinutes = f.split('d')
-    degrees = int(degreesAndMinutes[0])
+    degreesStr = degreesAndMinutes[0]
+    degrees = int(degreesStr)
     # print('degrees', degrees)
     minutesStr = degreesAndMinutes[1]
     minutes = float(minutesStr)
-    if minutesStr[0] == '-1':
-        return degrees - arcminToDegrees(minutes)
-    return  degrees + arcminToDegrees(minutes)
+    if degreesStr[0] == '-':
+        return -1 * (abs(degrees) + arcminToDegrees(minutes))
+    return degrees + arcminToDegrees(minutes)
 
 
 def formatAlt(alt):
