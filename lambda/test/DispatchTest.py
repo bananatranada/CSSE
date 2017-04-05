@@ -210,6 +210,7 @@ class DispatchTest(TestCase):
 #     Sad path:
 #            predict(invalidDict) -> dictionary with an error corresponding to the invalid element
 #
+    # Happy path
     def test300_010_ShouldReturnPredictedLocation(self):
         input = {
             'op': 'predict',
@@ -244,7 +245,7 @@ class DispatchTest(TestCase):
         }
         self.assertDictEqual(nav.dispatch(input), output)
 
-    def test400_030_ShouldReturnPredictedLocation(self):
+    def test300_030_ShouldReturnPredictedLocation(self):
         input = {
             'op': 'predict',
             'body': 'Alnilam',
@@ -261,7 +262,7 @@ class DispatchTest(TestCase):
         }
         self.assertDictEqual(nav.dispatch(input), output)
 
-    def test500_030_ShouldReturnPredictedLocation(self):
+    def test300_040_ShouldReturnPredictedLocation(self):
         input = {
             'op': 'predict',
             'body': 'Nunki',
@@ -277,3 +278,34 @@ class DispatchTest(TestCase):
             'op': 'predict'
         }
         self.assertDictEqual(nav.dispatch(input), output)
+
+    def test300_050_ShouldAssignDefaultDate(self):
+        input = {
+            'op': 'predict',
+            'body': 'Nunki',
+            'time': '08:02:04'
+        }
+        output = {
+            'body': 'Nunki',
+            'lat': '-26d16.4',
+            'op': 'predict',
+            'long': '297d30.0',
+            'time': '08:02:04'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    def test300_060_ShouldAssignDefaultTime(self):
+        input = {
+            'op': 'predict',
+            'body': 'Nunki',
+            'date': '2011-04-05'
+        }
+        output = {
+            'body': 'Nunki',
+            'date': '2011-04-05',
+            'lat': '-26d16.4',
+            'long': '268d52.8',
+            'op': 'predict'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+

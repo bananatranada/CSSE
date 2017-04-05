@@ -260,8 +260,7 @@ def locate(values):
 input = {
             'op': 'predict',
             'body': 'Nunki',
-            'date': '2042-11-01',
-            'time': '08:02:04'
+            'date': '2011-04-05'
         }
 
 print(predict(input))
