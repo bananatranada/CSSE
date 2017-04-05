@@ -206,8 +206,8 @@ def degreesFromFormattedAlt(f):
     # print('degrees', degrees)
     minutesStr = degreesAndMinutes[1]
     minutes = float(minutesStr)
-    # if degrees <= 0:
-    #     return degrees - arcminToDegrees(minutes)
+    if minutesStr[0] == '-1':
+        return degrees - arcminToDegrees(minutes)
     return  degrees + arcminToDegrees(minutes)
 
 
