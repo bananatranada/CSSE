@@ -172,6 +172,11 @@ def predict(values):
     totalGHA = newGhaghaAries + rotation
 
     # star's GHA
+    ghaStar = totalGHA + degreesFromFormattedAlt(sha)
+    ghaStar = formatAlt(ghaStar)
+
+    values['lat'] = lat
+    values['long'] = ghaStar
 
     return output
 
@@ -197,7 +202,7 @@ def degreesFromFormattedAlt(f):
 
 
 def formatAlt(alt):
-    degrees = math.floor(alt)
+    degrees = math.floor(alt) % 360
     arcmin = round(degreesToArcmin(alt - degrees), 1)
     return '%dd%.1f' % (degrees, arcmin)
 
@@ -227,3 +232,5 @@ def correct(values):
 
 def locate(values):
     return values
+
+input =
