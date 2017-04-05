@@ -384,7 +384,7 @@ class DispatchTest(TestCase):
             'op': 'predict',
             'body': 'unknown',
             'date': '2016-01-17',
-            'time': '03:15:42'
+            'time': '03:15:42',
             'error': 'star not in catalog'
         }
         self.assertDictEqual(nav.dispatch(input), output)
