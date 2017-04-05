@@ -155,21 +155,28 @@ def predict(values):
     refDateAndTime = datetime.datetime.strptime('2001', '%Y')
     refYear = refDateAndTime.year
 
-    cumulativeProgression = ghaAries * (dateAndTime.year - refYear)
+    cumulativeProgression = -1*(degreesFromFormattedAlt('0d14.31667') * (dateAndTime.year - refYear))
+    print('cumulativeProgression', formatAlt(cumulativeProgression))
     leapYears = numOfLeapYears(refYear, dateAndTime.year)
     earthRotation = 86164.1
     earthClock = 86400
     earthDegrees = degreesFromFormattedAlt('360d0.00')
     dailyRotation = abs(earthDegrees - earthRotation / earthClock * earthDegrees)
     leapProgression = leapYears * dailyRotation
+    print('total/leap progression', formatAlt(leapProgression))
 
     newGhaghaAries = ghaAries + cumulativeProgression + leapProgression
+    print('newGHA', formatAlt(newGhaghaAries))
 
     # get dateAndTime - refDateAndTime in seconds
-    delta = (dateAndTime-refDateAndTime).total_seconds()
-    rotation = earthRotation / delta * degreesFromFormattedAlt('360d0.00')
+    delta = (dateAndTime-datetime.datetime.strptime(str(dateAndTime.year), '%Y')).total_seconds()
+    print('delta', delta)
+    # rotation = earthRotation / delta * degreesFromFormattedAlt('360d0.00')
+    rotation = delta / 86164.1 * degreesFromFormattedAlt('360d0.00')
+    print('rotation', formatAndNormalizeAlt(rotation))
 
     totalGHA = newGhaghaAries + rotation
+    print('final gha of aries', formatAlt(totalGHA))
 
     # star's GHA
     ghaStar = totalGHA + degreesFromFormattedAlt(sha)
@@ -198,13 +205,29 @@ def degreesFromFormattedAlt(f):
     # print('degrees', degrees)
     minutesStr = degreesAndMinutes[1]
     minutes = float(minutesStr)
+    # if degrees <= 0:
+    #     return degrees - arcminToDegrees(minutes)
     return  degrees + arcminToDegrees(minutes)
 
 
 def formatAlt(alt):
-    degrees = math.floor(alt) % 360
-    arcmin = round(degreesToArcmin(alt - degrees), 1)
+    print(alt)
+    print(math.floor(alt))
+    degrees = math.floor(alt)
+    if alt < 0:
+        degrees = math.ceil(alt)
+    print('fa', degrees)
+    arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
     return '%dd%.1f' % (degrees, arcmin)
+
+def formatAndNormalizeAlt(alt):
+    degrees = math.floor(alt)
+    if alt < 0:
+        degrees = math.ceil(alt)
+    normalizedDegrees = degrees % 360
+    print('fa', degrees)
+    arcmin = abs(round(degreesToArcmin(alt - degrees), 1))
+    return '%dd%.1f' % (normalizedDegrees, arcmin)
 
 def calcAltitude(totalDegrees, dip, refraction):
     return totalDegrees + dip + refraction
