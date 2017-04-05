@@ -8,7 +8,7 @@ stars = {
     'Diphda':'348d54.1,-17d54.1',
     'Achernar':	'335d25.5,-57d09.7',
     'Hamal': '327d58.7,23d32.3',
-    'Polaris':'316d41.3,89d20.1'
+    'Polaris':'316d41.3,89d20.1',
     'Akamar':'315d16.8,-40d14.8',
     'Menkar':'314d13.0,4d09.0',
     'Mirfak':'308d37.4,49d55.1',
@@ -60,16 +60,15 @@ stars = {
     'Alnair'	:'27d42.0,-46d53.1',
     'Fomalhaut'	:'15d22.4,-29d32.3',
     'Scheat'	:'13d51.8,28d10.3',
-    'Markab'	:'13d36.7,15d17.6',
-
+    'Markab'	:'13d36.7,15d17.6'
 }
 
 def predict(values):
     output = values.copy()
 
-    # if 'altitude' in values:
-    #     output['error'] = 'altitude already exists in the input'
-    #     return output
+    if 'lat' in values or 'long in values':
+        output['error'] = 'lat or long already exists in the input'
+        return output
 
     # body
     if 'body' not in values:
@@ -143,111 +142,59 @@ def predict(values):
             output['error'] = 'time is invalid'
             return output
 
-
-    try:
-        degreesAndMinutes = values['observation'].split('d')
-        degrees = int(degreesAndMinutes[0])
-        # print('degrees', degrees)
-        minutesStr = degreesAndMinutes[1]
-        minutes = float(minutesStr)
-        # print('minutes', minutes)
-    except:
-        output['error'] = 'observation is invalid'
+    # lat, sha
+    star = values['body'][0].upper() + values['body'].lower()[1:]
+    if star not in stars:
+        output['error'] = 'star is invalid'
         return output
-    if degrees < 0 or degrees >= 90:
-        # output['error'] = 'degrees must be an integer [0, 90)'
-        output['error'] = 'observation is invalid'
-        return output
-    if minutesStr[::-1].find('.') is not 1:
-        # output['error'] = 'minutes must be a float with a mandatory decimal [0.0, 60.0)'
-        output['error'] = 'observation is invalid'
-        return output
-    if minutes < 0.0 or minutes >= 60.0:
-        # output['error'] = 'minutes must be a float with a mandatory decimal [0.0, 60.0)'
-        output['error'] = 'observation is invalid'
-        return output
-    if degrees == 0 and minutes == 0.1:
-        # output['error'] = 'can\'t be less than 0d0.1'
-        output['error'] = 'observation is invalid'
-        return output
-    totalDegrees = degrees + arcminToDegrees(minutes)
-    # print('totalDegrees', totalDegrees)
+    lat = stars[star].split(',')[1]
+    sha = stars[star].split(',')[0]
 
-    # height (numeric? int or float accepted?)
-    height = 0
-    if 'height' in values:
-        try:
-            height = float(values['height'])
-        except ValueError:
-            output['error'] = 'height is invalid'
-            return output
-        if values['height'] < 0:
-            # output['error'] = 'height must be greater than 0'
-            output['error'] = 'height must be greater than 0'
-            return output
+    # greenwich hour angle of aries
+    ghaAries = degreesFromFormattedAlt('100d42.6')
+    refDateAndTime = datetime.datetime.strptime(2001, '%Y')
+    refYear = refDateAndTime.year
 
-    # temperature (int)
-    temperature = 72
-    if 'temperature' in values:
-        try:
-            temperature = int(values['temperature'])
-        except ValueError:
-            output['error'] = 'temperature is invalid'
-            return output
-        if temperature < -20 or temperature > 120:
-            # output['error'] = 'temperature must be within range [-20, 120]'
-            output['error'] = 'temperature is invalid'
-            return output
+    cumulativeProgression = ghaAries * (dateAndTime.year - refYear)
+    leapYears = numOfLeapYears(refYear, dateAndTime.year)
+    earthRotation = 86164.1
+    earthClock = 86400
+    earthDegrees = degreesFromFormattedAlt('360d0.00')
+    dailyRotation = math.abs(earthDegrees - earthRotation / earthClock * earthDegrees)
+    leapProgression = leapYears * dailyRotation
 
-    # pressure (int)
-    pressure = 1010
-    if 'pressure' in values:
-        try:
-            pressure = int(values['pressure'])
-        except ValueError:
-            output['error'] = 'pressure is invalid'
-            return output
-        if pressure < 100 or pressure > 1100:
-            # output['error'] = 'pressure must be within range [100, 1100]'
-            output['error'] = 'pressure is invalid'
-            return output
+    newGhaghaAries = ghaAries + cumulativeProgression + leapProgression
 
-    # horizon (string)
-    horizon = 'natural'
-    if 'horizon' in values:
-        try:
-            horizon = values['horizon'].lower()
-        except AttributeError:
-            output['error'] = 'horizon is invalid'
-            return output
-        if horizon != 'artificial' and horizon != 'natural':
-            # output['error'] = 'horizon must be either artificial or natural (case-insensitive)'
-            output['error'] = 'horizon is invalid'
-            return output
+    # get dateAndTime - refDateAndTime in seconds
+    delta = (dateAndTime-refDateAndTime).total_seconds()
+    rotation = earthRotation / delta * degreesFromFormattedAlt('360d0.00')
 
-    # dip
-    dip = 0
-    if horizon == 'natural':
-        dip = calcDip(height)
-    # print('dip', dip)
+    totalGHA = newGhaghaAries + rotation
 
-    # refraction
-    refraction = calcRefraction(pressure, convertToCelcius(temperature), math.tan(math.radians(totalDegrees)))
-    # print('refraction', refraction)
-    # print('temp in C', convertToCelcius(temperature))
-
-    altitude = calcAltitude(totalDegrees, dip, refraction)
-    # print('altitude', altitude)
-    # check to see if altitude is within valid range
-    if altitude < 0 or altitude >= 91:
-        output['error'] = 'altitude is invalid'
-        return output
-    formattedAltitude = formatAlt(altitude)
-    # print('formatted altitude', formattedAltitude)
-
-    output['altitude'] = formattedAltitude
+    # star's GHA
 
     return output
+
+def isLeapYear(year):
+    if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+        return True
+    return False
+
+def numOfLeapYears(year1, year2):
+    num = 0
+    for year in range(year1, year2):
+        if isLeapYear(year):
+            num = num + 1
+    return num
+
+def degreesFromFormattedAlt(f):
+    degreesAndMinutes = values['observation'].split('d')
+    degrees = int(degreesAndMinutes[0])
+    # print('degrees', degrees)
+    minutesStr = degreesAndMinutes[1]
+    minutes = float(minutesStr)
+    return  degrees + arcminToDegrees(minutes)
+
 
 def formatAlt(alt):
     degrees = math.floor(alt)
