@@ -157,32 +157,32 @@ def predict(values):
     refYear = refDateAndTime.year
 
     cumulativeProgression = (util.degreesFromFormattedAlt('-0d14.31667') * (dateAndTime.year - refYear))
-    print('cumulativeProgression', util.formatAlt(cumulativeProgression))
+    # print('cumulativeProgression', util.formatAlt(cumulativeProgression))
     leapYears = util.numOfLeapYears(refYear, dateAndTime.year)
     earthRotation = 86164.1
     earthClock = 86400
     earthDegrees = util.degreesFromFormattedAlt('360d0.00')
     dailyRotation = abs(earthDegrees - earthRotation / earthClock * earthDegrees)
     leapProgression = leapYears * dailyRotation
-    print('total/leap progression', util.formatAlt(leapProgression))
+    # print('total/leap progression', util.formatAlt(leapProgression))
 
     newGhaghaAries = ghaAries + cumulativeProgression + leapProgression
-    print('newGHA', util.formatAlt(newGhaghaAries))
+    # print('newGHA', util.formatAlt(newGhaghaAries))
 
     # get dateAndTime - refDateAndTime in seconds
     delta = (dateAndTime-datetime.datetime.strptime(str(dateAndTime.year), '%Y')).total_seconds()
-    print('delta', delta)
+    # print('delta', delta)
     # rotation = earthRotation / delta * degreesFromFormattedAlt('360d0.00')
     rotation = delta / 86164.1 * util.degreesFromFormattedAlt('360d0.00')
-    print('rotation', util.formatAndNormalizeAlt(rotation))
+    # print('rotation', util.formatAndNormalizeAlt(rotation))
 
     totalGHA = newGhaghaAries + rotation
-    print('final gha of aries', util.formatAndNormalizeAlt(totalGHA))
+    # print('final gha of aries', util.formatAndNormalizeAlt(totalGHA))
 
     # star's GHA
     ghaStar = totalGHA + util.degreesFromFormattedAlt(sha)
     ghaStar = util.formatAndNormalizeAlt(ghaStar)
-    print('ghaStar', ghaStar)
+    # print('ghaStar', ghaStar)
 
     output['lat'] = lat
     output['long'] = ghaStar
