@@ -95,7 +95,7 @@ class DispatchTest(TestCase):
             'long': '75d53.6',
             'lat': '7d24.3'
         }
-        self.assertDictEqual(nav.predict(input), output)
+        self.assertDictEqual(nav.dispatch(input), output)
 
     # Sad path
     def test100_910_ShouldReturnNoOpError(self):
@@ -225,5 +225,5 @@ class DispatchTest(TestCase):
             'long': '75d53.6',
             'lat': '7d24.3'
         }
-        self.assertDictEqual(nav.predict(input), output)
+        self.assertDictEqual(nav.dispatch(input), output)
 
