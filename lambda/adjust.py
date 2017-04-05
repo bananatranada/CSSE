@@ -117,4 +117,17 @@ def adjust(values):
 
     return output
 
-
+# input = {
+#     'observation': '30d1.5',
+#     'height': '19',
+#     'pressure': '1000',
+#     'horizon': 'artificial',
+#     'op': 'adjust',
+#     'temperature': '85'
+# }
+# input = {
+#     'observation': '42d0.0',
+#     'op': 'adjust',
+# }
+# output = dispatch(input)
+# print(output)
