@@ -372,3 +372,19 @@ class DispatchTest(TestCase):
             'error': 'mandatory information is missing'
         }
         self.assertDictEqual(nav.dispatch(input), output)
+
+    def test300_930_ShouldReturnInvalidStarError(self):
+        input = {
+            'op': 'predict',
+            'body': 'unknown',
+            'date': '2016-01-17',
+            'time': '03:15:42'
+        }
+        output = {
+            'op': 'predict',
+            'body': 'unknown',
+            'date': '2016-01-17',
+            'time': '03:15:42'
+            'error': 'star not in catalog'
+        }
+        self.assertDictEqual(nav.dispatch(input), output)

@@ -145,7 +145,7 @@ def predict(values):
     # lat, sha
     star = values['body'][0].upper() + values['body'].lower()[1:]
     if star not in stars:
-        output['error'] = 'star is invalid'
+        output['error'] = 'star not in catalog'
         return output
     lat = stars[star].split(',')[1]
     sha = stars[star].split(',')[0]
