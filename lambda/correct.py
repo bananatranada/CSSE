@@ -272,7 +272,7 @@ def correct(values):
     # print('cos(LHA)', round(math.cos(math.radians(LHA)), 3))
     correctedAltitude = math.asin(intermediateDistance)
     # print('correctedAltitude', correctedAltitude)
-    correctedDistance = int(round(util.degreesToArcmin(totalAltitudeDegrees - math.degrees(correctedAltitude)), 0))
+    correctedDistance = str(int(round(util.degreesToArcmin(totalAltitudeDegrees - math.degrees(correctedAltitude)), 0)))
     correctedAzimuth = util.formatAndNormalizeAlt(math.degrees(math.acos((math.sin(math.radians(totalLatDegrees)) - (math.sin(math.radians(totalAssumedLatDegrees)) * intermediateDistance))/(math.cos(math.radians(totalAssumedLatDegrees)) * math.cos(math.asin(intermediateDistance))))))
     # print('sin(lat)', math.sin(math.radians(totalLatDegrees)))
     # print(math.sin(math.radians(totalAssumedLatDegrees)))
