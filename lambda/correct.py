@@ -280,8 +280,7 @@ def correct(values):
     # print(correctedDistance)
     # print(correctedAzimuth)
 
-    output['correctedDistace'] = correctedDistance
-    output['correctedAzimuth'] = correctedAzimuth
+    
 
     return output
 
