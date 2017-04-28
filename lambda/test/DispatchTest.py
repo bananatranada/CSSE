@@ -529,7 +529,7 @@ class DispatchTest(TestCase):
         }
         self.assertDictEqual(nav.dispatch(input), output)
 
-    def test400_040_ShouldReturnMissingAssumedLongError(self):
+    def test400_050_ShouldReturnMissingAssumedLongError(self):
         input = {
             'op': 'correct',
             'lat' : '89d20.1',
@@ -546,5 +546,25 @@ class DispatchTest(TestCase):
             'altitude' :'37d17.4',
             'assumedLat': '35d59.7',
             # 'assumedLong': '74d35.3',
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    def test400_060_ShouldReturnCorrectedDistanceExistsError(self):
+        input = {
+            'op': 'correct',
+            'lat' : '89d20.1',
+            'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
+        }
+        output = {
+            'op': 'correct',
+            'lat' : '89d20.1',
+            'error': 'correctedDistance already exists',
+            'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
         }
         self.assertDictEqual(nav.dispatch(input), output)

@@ -102,9 +102,9 @@ def correct(values):
         output['error'] = 'assumedLong is invalid'
         return output
 
-    if 'correctedDistance' in values:
-        output['error'] = 'correctedDistance already exists'
-        return output
+    # if 'correctedDistance' in values:
+    #     output['error'] = 'correctedDistance already exists'
+    #     return output
 
     if 'correctedAzimuth' in values:
         output['error'] = 'correctedAzimuth already exists'
