@@ -557,6 +557,7 @@ class DispatchTest(TestCase):
             'altitude' :'37d17.4',
             'assumedLat': '35d59.7',
             'assumedLong': '74d35.3',
+            'correctedDistance': 'sdf',
         }
         output = {
             'op': 'correct',
