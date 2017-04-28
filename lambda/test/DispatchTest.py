@@ -451,6 +451,7 @@ class DispatchTest(TestCase):
     # Happy path
     def test400_010_ShouldReturnMissingLatError(self):
         input = {
+            'op': 'correct',
             # 'lat' : '89d20.1',
             'long' :'154d5.4',
             'altitude' :'37d17.4',
@@ -458,9 +459,30 @@ class DispatchTest(TestCase):
             'assumedLong': '74d35.3',
         }
         output = {
+            'op': 'correct',
             # 'lat' : '89d20.1',
             'error': 'mandatory information is missing',
             'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
+
+    def test400_020_ShouldReturnMissingLongError(self):
+        input = {
+            'op': 'correct',
+            'lat' : '89d20.1',
+            # 'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
+        }
+        output = {
+            'op': 'correct',
+            'lat' : '89d20.1',
+            'error': 'mandatory information is missing',
+            # 'long' :'154d5.4',
             'altitude' :'37d17.4',
             'assumedLat': '35d59.7',
             'assumedLong': '74d35.3',
