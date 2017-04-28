@@ -95,9 +95,7 @@ def correct(values):
         output['error'] = 'assumedLat is invalid'
         return output
 
-    if 'assumedLong' not in values:
-        output['error'] = 'mandatory information is missing'
-        return output
+    
     if not isinstance(output['assumedLong'], str):
         output['error'] = 'assumedLong is invalid'
         return output
