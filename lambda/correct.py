@@ -88,9 +88,9 @@ def correct(values):
         output['error'] = 'altitude is invalid'
         return output
 
-    if 'assumedLat' not in values:
-        output['error'] = 'mandatory information is missing'
-        return output
+    # if 'assumedLat' not in values:
+    #     output['error'] = 'mandatory information is missing'
+    #     return output
     if not isinstance(output['assumedLat'], str):
         output['error'] = 'assumedLat is invalid'
         return output
