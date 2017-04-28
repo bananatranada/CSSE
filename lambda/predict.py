@@ -76,18 +76,18 @@ def predict(values):
         output['error'] = 'mandatory information is missing'
         return output
 
-    if not isinstance(values['body'], str):
-            output['error'] = 'body is invalid'
-            return output
+    # if not isinstance(values['body'], str):
+    #         output['error'] = 'body is invalid'
+    #         return output
 
     # date (this will default to the correct time also)
     # Always use actual types within code; use the correct format to output
     dateAndTime = datetime.datetime.strptime('2001-01-01', '%Y-%m-%d')
 
     if 'date' in values:
-        if not isinstance(values['date'], str):
-            output['error'] = 'date is invalid'
-            return output
+        # if not isinstance(values['date'], str):
+        #     output['error'] = 'date is invalid'
+        #     return output
 
         try:
             date = values['date'].split('-')
@@ -121,9 +121,9 @@ def predict(values):
 
     # time
     if 'time' in values:
-        if not isinstance(values['time'], str):
-            output['error'] = 'time is invalid'
-            return output
+        # if not isinstance(values['time'], str):
+        #     output['error'] = 'time is invalid'
+        #     return output
 
         try:
             time = values['time'].split(':')

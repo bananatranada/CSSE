@@ -70,36 +70,21 @@ def correct(values):
     if 'lat' not in values:
         output['error'] = 'mandatory information is missing'
         return output
-    if not isinstance(output['lat'], str):
-        output['error'] = 'lat is invalid'
-        return output
 
     if 'long' not in values:
         output['error'] = 'mandatory information is missing'
-        return output
-    if not isinstance(output['long'], str):
-        output['error'] = 'long is invalid'
         return output
 
     if 'altitude' not in values:
         output['error'] = 'mandatory information is missing'
         return output
-    if not isinstance(output['altitude'], str):
-        output['error'] = 'altitude is invalid'
-        return output
 
     if 'assumedLat' not in values:
         output['error'] = 'mandatory information is missing'
         return output
-    if not isinstance(output['assumedLat'], str):
-        output['error'] = 'assumedLat is invalid'
-        return output
 
     if 'assumedLong' not in values:
         output['error'] = 'mandatory information is missing'
-        return output
-    if not isinstance(output['assumedLong'], str):
-        output['error'] = 'assumedLong is invalid'
         return output
 
     if 'correctedDistance' in values:
