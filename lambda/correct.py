@@ -83,27 +83,32 @@ def correct(values):
 
     if 'altitude' not in values:
         output['error'] = 'mandatory information is missing'
+        return output
     if not isinstance(output['altitude'], str):
         output['error'] = 'altitude is invalid'
         return output
 
     if 'assumedLat' not in values:
         output['error'] = 'mandatory information is missing'
+        return output
     if not isinstance(output['assumedLat'], str):
         output['error'] = 'assumedLat is invalid'
         return output
 
     if 'assumedLong' not in values:
         output['error'] = 'mandatory information is missing'
+        return output
     if not isinstance(output['assumedLong'], str):
         output['error'] = 'assumedLong is invalid'
         return output
 
     if 'correctedDistance' in values:
         output['error'] = 'correctedDistance already exists'
+        return output
 
     if 'correctedAzimuth' in values:
         output['error'] = 'correctedAzimuth already exists'
+        return output
 
     # lat
     try:
