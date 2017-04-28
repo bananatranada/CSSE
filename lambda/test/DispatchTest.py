@@ -436,3 +436,33 @@ class DispatchTest(TestCase):
             'error': 'time is invalid'
         }
         self.assertDictEqual(nav.dispatch(input), output)
+
+#---- Unit tests
+#
+# 300 predict
+#     Analysis
+#        inputs:
+#            values ->  dict mandatory validated (private functions are usually validated)
+#     Happy path:
+#            predict(validDict) -> dictionary with a new long/lat element calculated
+#     Sad path:
+#            predict(invalidDict) -> dictionary with an error corresponding to the invalid element
+#
+    # Happy path
+    def test400_010_ShouldReturnMissingLatError(self):
+        input = {
+            # 'lat' : '89d20.1',
+            'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
+        }
+        output = {
+            # 'lat' : '89d20.1',
+            'error': 'mandatory information is missing',
+            'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
+        }
+        self.assertDictEqual(nav.dispatch(input), output)

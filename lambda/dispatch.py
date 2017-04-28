@@ -1,6 +1,7 @@
 import math
 import adjust
 import predict
+import correct
 
 def dispatch(values=None):
 
@@ -19,7 +20,7 @@ def dispatch(values=None):
     elif(values['op'] == 'predict'):
         return predict.predict(values)    #This calculation is stubbed out
     elif(values['op'] == 'correct'):
-        return values    #This calculation is stubbed out
+        return correct.correct(values)    #This calculation is stubbed out
     elif(values['op'] == 'locate'):
         return values    #This calculation is stubbed out
     else:
