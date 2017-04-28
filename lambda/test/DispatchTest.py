@@ -570,3 +570,25 @@ class DispatchTest(TestCase):
             'assumedLong': '74d35.3',
         }
         self.assertDictEqual(nav.dispatch(input), output)
+
+    def test400_070_ShouldReturnCorrectedAzimuthExistsError(self):
+        input = {
+            'op': 'correct',
+            'lat' : '89d20.1',
+            'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
+            'correctedAzimuth': 'sdf',
+        }
+        output = {
+            'op': 'correct',
+            'lat' : '89d20.1',
+            'correctedDistance': 'sdf',
+            'error': 'correctedAzimuth already exists',
+            'long' :'154d5.4',
+            'altitude' :'37d17.4',
+            'assumedLat': '35d59.7',
+            'assumedLong': '74d35.3',
+        }
+        self.assertDictEqual(nav.dispatch(input), output)
