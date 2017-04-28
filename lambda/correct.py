@@ -76,6 +76,7 @@ def correct(values):
 
     if 'long' not in values:
         output['error'] = 'mandatory information is missing'
+        return output
     if not isinstance(output['long'], str):
         output['error'] = 'long is invalid'
         return output
