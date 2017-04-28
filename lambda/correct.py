@@ -67,9 +67,9 @@ stars = {
 def correct(values):
     output = values.copy()
 
-    # if 'lat' not in values:
-    #     output['error'] = 'mandatory information is missing'
-    #     return output
+    if 'lat' not in values:
+        output['error'] = 'mandatory information is missing'
+        return output
     if not isinstance(output['lat'], str):
         output['error'] = 'lat is invalid'
         return output
