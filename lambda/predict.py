@@ -81,9 +81,9 @@ def predict(values):
     dateAndTime = datetime.datetime.strptime('2001-01-01', '%Y-%m-%d')
 
     if 'date' in values:
-        # if not issubclass(values['data'], str):
-        #     output['error'] = 'date is invalid'
-        #     return output
+        if not isinstance(values['date'], str):
+            output['error'] = 'date is invalid'
+            return output
 
         try:
             date = values['date'].split('-')
