@@ -562,6 +562,7 @@ class DispatchTest(TestCase):
         output = {
             'op': 'correct',
             'lat' : '89d20.1',
+            'correctedDistance': 'sdf',
             'error': 'correctedDistance already exists',
             'long' :'154d5.4',
             'altitude' :'37d17.4',
