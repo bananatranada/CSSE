@@ -121,6 +121,10 @@ def predict(values):
 
     # time
     if 'time' in values:
+        if not isinstance(values['time'], str):
+            output['error'] = 'time is invalid'
+            return output
+
         try:
             time = values['time'].split(':')
 
