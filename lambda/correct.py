@@ -74,7 +74,7 @@ def correct(values):
         output['error'] = 'lat is invalid'
         return output
 
-    
+
     if not isinstance(output['long'], str):
         output['error'] = 'long is invalid'
         return output
