@@ -81,7 +81,8 @@ def correct(values):
         output['error'] = 'long is invalid'
         return output
 
-    
+    if 'altitude' not in values:
+        output['error'] = 'mandatory information is missing'
     if not isinstance(output['altitude'], str):
         output['error'] = 'altitude is invalid'
         return output
